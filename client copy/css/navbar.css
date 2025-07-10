@@ -1,0 +1,29 @@
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4CAF50;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#app-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#menu-items a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+
+#menu-items a:hover {
+  text-decoration: underline;
+}
+
+#user-info {
+  font-weight: bold;
+}

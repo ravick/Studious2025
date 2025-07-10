@@ -1,6 +1,27 @@
 const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const authRoutes = require('./routes/authRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+
 const app = express();
 const port = 3000;
+
+app.use(express.json());
+
+// Serve static files from the 'client' directory
+const clientPath = path.join(__dirname, '..', 'client');
+console.log('Serving static files from client directory rooted at:', clientPath);
+app.use(express.static(clientPath));
+
+app.use(session({
+  secret: 'session_secret_key_123_to_be_changed',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
