@@ -1,8 +1,8 @@
 const express = require('express');
 const ensureAuthenticated = require('../middleware/authMiddleware');
 const router = express.Router();
-const dashboardController = require('../api/dashboardController');
+const homeController = require('../api/homeController');
 
-router.get('/home', ensureAuthenticated, dashboardController.DashboardHome);
+router.get('/', ensureAuthenticated, homeController.Home);
 
 module.exports = router;

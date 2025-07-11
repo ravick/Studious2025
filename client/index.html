@@ -2,11 +2,11 @@
 <html>
 <head>
   <title>Studious - Authentication</title>
-  <link rel="stylesheet" href="../client/css/style.css">
-  <link rel="stylesheet" href="../client/css/navbar.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/navbar.css">
 </head>
-<script src="../client/js/navbar.js"></script>
-<script src="../client/js/script.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/script.js"></script>
 <body>
   <h1>Studious - Authentication</h1>
 
@@ -19,7 +19,7 @@
     <div id="auth-form">
       <input id="username" placeholder="Username" />
       <input id="password" type="password" placeholder="Password" />
-      <label><input type="checkbox" id="rememberMe"> Remember Me</label>
+      <label>Remember Me<input type="checkbox" id="rememberMe"></label>
       <button id="submit-btn" onclick="login()">Login</button>
     </div>
 
@@ -28,7 +28,7 @@
 
   <div id="logout-section" style="display: none;">
     <p id="welcome-message"></p>
-    <button onclick="window.location.href='dashboard.html'">Go to Dashboard</button>
+    <button onclick="window.location.href='home.html'">Go to Home</button>
     <button onclick="logout()">Logout</button>
   </div>
 </body>

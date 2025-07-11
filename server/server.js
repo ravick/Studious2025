@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const authRoutes = require('./routes/authRoutes');
-const dashboardRoutes = require('./routes/dashboardRoutes');
+const homeRoutes = require('./routes/homeRoutes');
 
 const app = express();
 const port = 3000;
@@ -21,10 +21,10 @@ app.use(session({
 }));
 
 app.use('/auth', authRoutes);
-app.use('/dashboard', dashboardRoutes);
+app.use('/home', homeRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.send('Welcome to the Home Page!');
 });
 
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));

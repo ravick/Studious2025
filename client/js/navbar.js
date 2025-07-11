@@ -8,7 +8,15 @@ function loadNavbar(username) {
       document.getElementById('user-name').innerText = username;
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = 'navbar.css';
+      link.href = '/css/navbar.css';
       document.head.appendChild(link);
     });
+}
+
+function logout() {
+  fetch('/auth/logout', { method: 'POST' }).then(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+  });
 }
