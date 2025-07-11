@@ -77,12 +77,6 @@ async function login() {
   }
 }
 
-async function fetchDashboard() {
-  const res = await fetch('/dashboard');
-  const data = await res.json();
-  alert(data.message || data.error);
-}
-
 function logout() {
   fetch('/auth/logout', { method: 'POST' }).then(() => {
     localStorage.clear();
