@@ -18,12 +18,6 @@ function showMessage(text, success = false) {
   msg.className = success ? 'status-msg success' : 'status-msg';
 }
 
-function showDashboard(username) {
-  document.getElementById('form-section').style.display = 'none';
-  document.getElementById('logout-section').style.display = 'block';
-  document.getElementById('welcome-message').innerText = `Welcome, ${username}`;
-}
-
 function showLoginForm() {
   document.getElementById('form-section').style.display = 'block';
   document.getElementById('logout-section').style.display = 'none';
@@ -71,7 +65,9 @@ async function login() {
       sessionStorage.setItem('isLoggedIn', 'true');
       sessionStorage.setItem('username', username);
     }
-    showDashboard(username);
+    
+    window.location.href = 'home.html';
+
   } else {
     showMessage(data.error);
   }

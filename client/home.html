@@ -1,12 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Studious - Authentication</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
-  <h1>Welcome to Home</h1>
-  <p id="welcome-message"></p>
-  <button onclick="fetchHome()">Fetch Private Data</button>
-  <button onclick="logout()">Logout</button>
-  <p id="dash-msg"></p>
+  <h1 id="welcome-message"></h1>
 
   <script src="/js/navbar.js"></script>
   <script src="/js/home.js"></script>
-
+ <div class="container">
+  <table>
+    <tr>
+      <td> 
+        <div class="text-section" style="width: 400px;">
+            <h1><span class="highlight-dark">Smarter Questions.</span><br>
+            <span class="highlight-dark">Better Answers.</span><br>
+            <span class="highlight-blue">Faster Learning.</span></h1>
+            <p class="description">Get instant academic help, homework support, and college prep — all in one place.</p>
+            <p class="slogan">Ask. Learn. Succeed.</p>
+            <a href="#" class="btn" onclick="fetchHome()">Get Started</a>
+        </div></td>
+      <td> 
+         <div class="image-section">
+            <img src="assets/home-infographics.jpg" alt="Infographic UI"/> </div>
+             <p id="dash-msg"></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+       
 </body>
-
+</html>
