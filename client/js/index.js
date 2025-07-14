@@ -87,7 +87,7 @@ window.onload = async () => {
   const username = localStorage.getItem('username') || sessionStorage.getItem('username');
 
   if (isLoggedIn && username) {
-    const res = await fetch('/dashboard');
+    const res = await fetch('/home');
     if (res.ok) {
       loadNavbar(username);
       showDashboard(username);
