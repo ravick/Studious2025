@@ -1,0 +1,56 @@
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#app-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#menu-items a {
+  margin: 0 10px;
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+  text-decoration: none;
+}
+
+#menu-items a:hover {
+  text-decoration: underline;
+}
+
+#user-info {
+  font-weight: bold;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #3c83f6, #c6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+.text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.transition-colors {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+}
+
+.text-gray-700 {
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
