@@ -15,7 +15,7 @@ console.log('Serving static files from client directory rooted at:', clientPath)
 app.use(express.static(clientPath));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || (() => { throw new Error('SESSION_SECRET environment variable is not set'); })(),
+  secret: "session_secret", //process.env.SESSION_SECRET || (() => { throw new Error('SESSION_SECRET environment variable is not set'); })(),
   resave: false,
   saveUninitialized: false
 }));
