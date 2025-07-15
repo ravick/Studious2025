@@ -23,8 +23,4 @@ app.use(session({
 app.use('/auth', authRoutes);
 app.use('/home', homeRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Home Page!');
-});
-
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
