@@ -1,5 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./users.db');
+const path = require('path');
+const dbPath = path.join(__dirname, 'users.db');
+const db = new sqlite3.Database(dbPath);
 
 // Create a users table if it doesn't exist
 db.run(`
