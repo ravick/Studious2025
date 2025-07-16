@@ -8,15 +8,16 @@
 
 exports.ask = async (request) => {
   var input = request.body.question || request.body.input;
+  console.log("Input received:", input);
   try {
     const chatCompletion = await client.chat.completions.create({
-      model: 'gpt-4', // or gpt-3.5-turbo, gpt-4o
+      model: 'gpt-4o-mini', // or gpt-3.5-turbo, gpt-4o
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: "Answer should be embedded in html tags. explain basic algebra for a school student. " + input }
+        { role: 'user', content: "Answer should be embedded in html tags. " + input }
       ],
       temperature: 0.7,
-      max_tokens: 150
+      max_tokens: 4000
     });
 
     const response = chatCompletion.choices[0].message.content;
