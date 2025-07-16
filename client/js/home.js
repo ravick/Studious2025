@@ -31,6 +31,7 @@ function submitQuestion() {
   console.log("Submitting question:", question);
   document.getElementById('submit-btn').disabled = true;
   document.getElementById('submit-btn').style.backgroundColor = 'gray';
+  document.getElementById('response-container').style.display = 'block';
   document.getElementById('response-container').innerText = 'Thinking...';
   fetch('/home/ask', {
     method: 'POST',
@@ -43,8 +44,15 @@ function submitQuestion() {
     document.getElementById('submit-btn').style.backgroundColor = '';
     console.log("Response received:", data);
     if (data.answer) {
-      document.getElementById('response-container').innerText = data.answer;
-      
+      // check if the data.answer contains HTML tags, remove html and body tags if present and render the rest as HTML
+      if (data.answer.includes('<html>') || data.answer.includes('<body>')) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.answer, 'text/html');
+        const bodyContent = doc.body.innerHTML;
+        document.getElementById('response-container').innerHTML = bodyContent || 'No answer found.';
+      } else {
+        document.getElementById('response-container').innerText = data.answer;
+      }
       var usageDiv = document.getElementById('usage-div');
       usageDiv.style.display = 'block';
 
@@ -52,7 +60,13 @@ function submitQuestion() {
       usageMessage.value = JSON.stringify(data.usage, null, 2) || 'No usage data available.';
       console.log('Usage data:', data.usage);
     } else {
-      document.getElementById('response-container').innerText = data.error || 'No answer found.';
+      if(data.error) {
+        console.error("Error in response:", data.error);
+        document.getElementById('response-container').innerText = data.error.error.message || 'No answer found.';
+      }
+      else { 
+        document.getElementById('response-container').innerText = 'No answer found.';
+      }
     }
   });
 } 

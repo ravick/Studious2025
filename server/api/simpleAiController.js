@@ -13,7 +13,7 @@ exports.ask = async (request) => {
       model: 'gpt-4', // or gpt-3.5-turbo, gpt-4o
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: input }
+        { role: 'user', content: "Answer should be embedded in html tags. explain basic algebra for a school student. " + input }
       ],
       temperature: 0.7,
       max_tokens: 150
