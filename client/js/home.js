@@ -71,7 +71,7 @@ function submitQuestion() {
         document.getElementById('response-container').innerHTML = bodyContent || 'No answer found.';
       } else {
         console.log("Answer received is plain text");
-        document.getElementById('response-container').innerText = data.answer;
+        document.getElementById('response-container').innerHTML = data.answer;
       }
       var usageDiv = document.getElementById('usage-div');
       usageDiv.style.display = 'block';
