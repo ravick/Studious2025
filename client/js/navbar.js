@@ -17,6 +17,6 @@ function logout() {
   fetch('/auth/logout', { method: 'POST' }).then(() => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = 'index.html';
+    window.location.href = 'signup.html';
   });
 }
