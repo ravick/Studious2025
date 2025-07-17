@@ -1,0 +1,21 @@
+
+.heads {
+    margin-left: 80px;
+    margin-top: 150px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.h2 {
+    margin-left: 80px;
+    margin-top: 75px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+
+
+.img_d {
+    float: right;
+    margin-top: 170px;
+    width: 800px;
+}
