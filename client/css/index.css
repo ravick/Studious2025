@@ -1,13 +1,3 @@
-.Head {
-  position: sticky;
-  top: 0;
-  padding: 5px;
-  background-color: #fcf9f9;
-  border: 2px solid #ffffff;
-  word-spacing: 560px;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 .heads {
     margin-left: 80px;
@@ -22,10 +12,7 @@
     font-size: 20px;
 }
 
-.buton {
-    margin-left: 80px;
-    font-family: Arial, Helvetica, sans-serif;
-}
+
 
 .img_d {
     float: right;
