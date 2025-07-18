@@ -89,32 +89,45 @@
       <span class="h1">Ask a Studious Question</span>
   </div>
 
-  <!-- <p>Type your question below and click submit to get an answer from our AI assistant.</p> -->
-  <table style="margin: 0 auto; text-align: center; border-collapse: separate; border: 1px solid gray; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
-    <tr>
-      <td style="text-align: center; padding: 10px;">
-        <input type="text" id="user-input" class="flex input" style="text-align: center; padding: 8px; margin-top: 25px; width: 400px;" placeholder="Enter your question here" required/>
-      </td>
-      <td style="text-align: center; padding: 10px;">
-        <button id="submit-btn" onclick="submitQuestion()" style="padding: 8px 16px;" class="btn btn-primary">Submit</button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <p class="text-muted" style="font-size: 0.9em;">(e.g., "What is the capital of France?")</p>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" style="padding: 10px;">
-        
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" style="text-align: center; padding: 10px;">
-       
-      </td>
-    </tr>
-  </table>
+  <!-- Modern Bootstrap 5 Card Layout -->
+  <div class="card shadow-lg" style="max-width: 600px; width: 100%; border-radius: 15px;">
+    <div class="card-body p-4">
+      <div class="mb-3">
+        <textarea 
+          id="user-input" 
+          class="form-control" 
+          rows="4" 
+          placeholder="Ask your question..." 
+          style="border: 1px solid #e0e0e0; 
+            border-radius: 10px; 
+            padding: 15px; 
+            font-size: 16px; 
+            resize: vertical;
+            min-height: 120px;"
+          value="" 
+          required></textarea>
+        <p class="text-muted" style="font-size: 0.9em;">(e.g., "Explain solving quadratic equations with examples")</p>
+
+      </div>
+      <div class="d-grid">
+        <button 
+          id="submit-btn" 
+          onclick="submitQuestion()" 
+          class="btn btn-primary btn-lg" 
+          style="
+            border-radius: 10px; 
+            padding: 15px; 
+            font-size: 16px; 
+            font-weight: 600;
+            background: linear-gradient(135deg, #4285f4 0%, #2563eb 100%);
+            border: none;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+          ">
+          Ask Now
+        </button>
+      </div>
+    </div>
+  </div>
 
  
  </div>
