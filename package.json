@@ -4,8 +4,9 @@
   "description": "studious-project/ │ ├── server/                 # Node.js backend │   ├── controllers/        # Route handler logic │   ├── models/             # Database models (SQL schema / ORM) │   ├── routes/             # Express routes │   ├── middleware/         # Custom middleware (e.g. auth, logger) │   ├── utils/              # Helper functions │   ├── config/             # Configuration files (e.g. DB, environment) │   ├── app.js              # Express app setup │   └── server.js           # Server entry point │ ├── public/                 # Static frontend files │   ├── index.html          # Main HTML page │   ├── js/                 # Client-side JavaScript │   ├── css/                # Stylesheets │   └── assets/             # Images, icons, etc. │ ├── .env                    # Environment variables ├── .gitignore ├── package.json └── README.md",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js"
+    "test": "echo \"Warning: no test specified\" && exit 0",
+    "start": "node ./server/server.js",
+    "dev": "node --env-file=.env ./server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
+    "openai": "^5.10.0",
     "path": "^0.12.7",
     "sqlite3": "^5.1.7"
   }

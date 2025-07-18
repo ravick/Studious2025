@@ -158,3 +158,19 @@ h1 {
 .flex {
     display: flex;
 }
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
