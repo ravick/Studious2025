@@ -10,85 +10,7 @@
 <body>
   <h1 id="welcome-message"></h1>
   <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-  <!-- create table with input fields for ChatGPT prompt input from user and response display -->
    
-  <!-- AI Wizard SVG -->
-  <div style="margin-bottom: 20px;">
-    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Gradient definitions -->
-        <linearGradient id="wizardHat" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-          <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
-        </linearGradient>
-        <linearGradient id="wizardRobe" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
-        </linearGradient>
-        <linearGradient id="magicWand" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#ffecd2;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#fcb69f;stop-opacity:1" />
-        </linearGradient>
-        <radialGradient id="magicGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" style="stop-color:#fff;stop-opacity:0.8" />
-          <stop offset="70%" style="stop-color:#ffd700;stop-opacity:0.4" />
-          <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:0.1" />
-        </radialGradient>
-      </defs>
-      
-      <!-- Background glow -->
-      <circle cx="60" cy="60" r="55" fill="url(#magicGlow)" opacity="0.3"/>
-      
-      <!-- Wizard robe -->
-      <path d="M60 45 L45 105 L75 105 Z" fill="url(#wizardRobe)" stroke="#2c5aa0" stroke-width="1"/>
-      
-      <!-- Wizard face -->
-      <circle cx="60" cy="35" r="12" fill="#fdbcb4" stroke="#e8a298" stroke-width="1"/>
-      
-      <!-- Wizard hat -->
-      <path d="M60 10 L45 40 L75 40 Z" fill="url(#wizardHat)" stroke="#5a4fcf" stroke-width="1"/>
-      <circle cx="52" cy="40" r="3" fill="#fff" opacity="0.8"/>
-      <circle cx="68" cy="40" r="2" fill="#fff" opacity="0.6"/>
-      
-      <!-- Hat tip with star -->
-      <circle cx="48" cy="15" r="4" fill="#ffd700"/>
-      <path d="M48 12 L49 15 L52 15 L50 17 L51 20 L48 18 L45 20 L46 17 L44 15 L47 15 Z" fill="#fff"/>
-      
-      <!-- Eyes -->
-      <circle cx="56" cy="32" r="1.5" fill="#333"/>
-      <circle cx="64" cy="32" r="1.5" fill="#333"/>
-      
-      <!-- Beard -->
-      <path d="M60 40 Q50 45 52 52 Q60 48 68 52 Q70 45 60 40" fill="#e6e6e6" stroke="#ccc" stroke-width="0.5"/>
-      
-      <!-- Magic wand -->
-      <line x1="75" y1="60" x2="95" y2="40" stroke="url(#magicWand)" stroke-width="3" stroke-linecap="round"/>
-      
-      <!-- Magic sparkles -->
-      <circle cx="98" cy="37" r="2" fill="#ffd700" opacity="0.9">
-        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="92" cy="32" r="1.5" fill="#ff6b6b" opacity="0.8">
-        <animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
-      </circle>
-      <circle cx="102" cy="45" r="1" fill="#4ecdc4" opacity="0.7">
-        <animate attributeName="opacity" values="0.1;0.8;0.1" dur="1.8s" repeatCount="indefinite" begin="1s"/>
-      </circle>
-      
-      <!-- Additional floating sparkles -->
-      <circle cx="25" cy="30" r="1" fill="#ffd700" opacity="0.6">
-        <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="translate" values="0,0; 5,-10; 0,0" dur="3s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="85" cy="80" r="1.5" fill="#ff6b6b" opacity="0.5">
-        <animate attributeName="opacity" values="0;0.7;0" dur="2.5s" repeatCount="indefinite" begin="1s"/>
-        <animateTransform attributeName="transform" type="translate" values="0,0; -8,-15; 0,0" dur="2.5s" repeatCount="indefinite" begin="1s"/>
-      </circle>
-    </svg>
-      <span class="h1">Ask a Studious Question</span>
-  </div>
-
   <!-- Modern Bootstrap 5 Card Layout -->
   <div class="card shadow-lg" style="max-width: 600px; width: 100%; border-radius: 15px;">
     <div class="card-body p-4">
@@ -97,7 +19,7 @@
           id="user-input" 
           class="form-control" 
           rows="4" 
-          placeholder="Ask your question..." 
+          placeholder="Type your question here..." 
           style="border: 1px solid #e0e0e0; 
             border-radius: 10px; 
             padding: 15px; 
@@ -123,7 +45,8 @@
             border: none;
             box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
           ">
-          Ask Now
+          Ask Now 
+          <img src="/assets/magic-wand.png" alt="Magic Wand" style="width: 24px; height: 24px; vertical-align: middle; margin-left: 8px;">
         </button>
       </div>
     </div>
@@ -202,28 +125,6 @@
           <p>OpenAI API Usage Details</p>
           <textarea id="usage-message" rows="15" cols="200" style="color: brown; max-width: 400px;"></textarea>
   </div>
-  <!-- <table class="home-table">
-    <tbody>
-    <tr>
-      <td>
-        <div class="text-section" style="width: 400px; padding-right: 50px;">
-            <h1><span class="highlight-dark">Smarter Questions.</span><br>
-            <span class="highlight-dark">Better Answers.</span><br>
-            <span class="highlight-blue">Faster Learning.</span></h1>
-            <p class="description">Get instant academic help, homework support, and college prep — all in one place.</p>
-            <p class="slogan">Ask. Learn. Succeed.</p>
-            <a href="#" class="btn" onclick="fetchHome()">Get Started</a>
-        </div></td>
-      <td> 
-         <div class="image-section">
-            <img src="assets/home-infographics.jpg" alt="Infographic UI"/>
-             <p id="dash-msg"></p>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table> -->
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
   <script src="/js/navbar.js"></script>
   <script src="/js/home.js"></script>
