@@ -10,6 +10,8 @@ function switchForm(form) {
 
   document.getElementById('login-tab').classList.toggle('active', form === 'login');
   document.getElementById('signup-tab').classList.toggle('active', form === 'signup');
+
+  document.getElementById('name-fields').style.display = form === 'signup' ? 'block' : 'none';
 }
 
 function showMessage(text, success = false) {

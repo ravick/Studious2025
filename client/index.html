@@ -7,10 +7,34 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/index.css">
+  <style>
+    .input-field {
+      height: 2.5rem; /* h-10 */
+      width: 100%;
+      border-radius: 0.375rem; /* rounded-md */
+      border: 1px solid var(--input-border-color); /* border-input */
+      background-color: var(--background-color);
+      padding: 0.5rem 0.75rem; /* px-3 py-2 */
+      font-size: 1rem; /* text-base */
+      color: var(--text-foreground);
+    }
+    .input-field::placeholder {
+      color: var(--placeholder-color); /* placeholder:text-muted-foreground */
+      font-size: 1rem;
+      font-family: inherit;
+      opacity: 1;
+    }
+    .input-field:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--ring-color);
+    }
+  </style>
+
 </head>
 <script src="/js/navbar.js"></script>
 <script src="/js/index.js"></script>
 <body>
+
   <div class="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
 
   <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md">
@@ -29,6 +53,19 @@
     </div>
 
     <div id="auth-form">
+      <div id="auth-form">
+    <div id="name-fields" style="display: none;" class="flex gap-4">
+      <div class="space-y-2 w-1/2">
+        <label class="text-sm font-medium leading-none" for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Enter your first name"
+          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+      </div>
+      <div class="space-y-2 w-1/2">
+        <label class="text-sm font-medium leading-none" for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter your last name"
+          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+      </div>
+    </div>
       <div class="space-y-2"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email">Email</label>
         <input type="email" class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full" id="username" placeholder="Enter your email">
       </div>
