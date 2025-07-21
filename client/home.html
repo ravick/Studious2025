@@ -5,13 +5,85 @@
   <title>Studious - Authentication</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+
+  </style>
 </head>
 
 <body>
   <h1 id="welcome-message"></h1>
+
+  <div class="DropBar" style="float: left;">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Academic Help</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Homework Help</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">College Prep</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <!-- Four dropdown menus in a column -->
+    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 20px; max-width: 220px;">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+          Science
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenu1">
+          <li><a class="dropdown-item" href="#">Biology</a></li>
+          <li><a class="dropdown-item" href="#">Chemistry</a></li>
+          <li><a class="dropdown-item" href="#">Physics</a></li>
+          <li><a class="dropdown-item" href="#">Environmental Science</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+          Math
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenu2">
+          <li><a class="dropdown-item" href="#">Algebra I & II </a></li>
+          <li><a class="dropdown-item" href="#">Geometry</a></li>
+          <li><a class="dropdown-item" href="#">Pre-Calculus</a></li>
+          <li><a class="dropdown-item" href="#">Calculus</a></li>
+          <li><a class="dropdown-item" href="#">Statistics</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">
+          English
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenu3">
+          <li><a class="dropdown-item" href="#">Essay Writing</a></li>
+          <li><a class="dropdown-item" href="#">Grammar & Syntax</a></li>
+          <li><a class="dropdown-item" href="#">Literature Analysis</a></li>
+          <li><a class="dropdown-item" href="#">Research Skills</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenu4" data-bs-toggle="dropdown" aria-expanded="false">
+          History & Civics
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenu4">
+          <li><a class="dropdown-item" href="#">U.S History</a></li>
+          <li><a class="dropdown-item" href="#">World History</a></li>
+          <li><a class="dropdown-item" href="#">Government & Civics</a></li>
+          <li><a class="dropdown-item" href="#">Economics</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+</div>
+  </div>
+
   <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
   <!-- create table with input fields for ChatGPT prompt input from user and response display -->
-   
+
   <!-- AI Wizard SVG -->
   <div style="margin-bottom: 20px;">
     <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -89,6 +161,8 @@
       <span class="h1">Ask a Studious Question</span>
   </div>
 
+
+   
   <!-- <p>Type your question below and click submit to get an answer from our AI assistant.</p> -->
   <table style="margin: 0 auto; text-align: center; border-collapse: separate; border: 1px solid gray; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
     <tr>
@@ -178,6 +252,8 @@
           display: none;
         "></div>
 
+  
+  
   <hr/>
   <div id="usage-div" style="
           color: brown; 
@@ -210,7 +286,7 @@
     </tr>
     </tbody>
   </table> -->
-
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
   <script src="/js/navbar.js"></script>
   <script src="/js/home.js"></script>
