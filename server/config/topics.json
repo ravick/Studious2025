@@ -1,0 +1,118 @@
+{
+    "topics": [
+        {
+            "name": "Mathematics",
+            "description": "The study of numbers, quantities, shapes, and patterns.",
+            "displayOrder": 1,
+            "subtopics": [
+                {
+                    "name": "Algebra 1 & 2",
+                    "description": "The branch of mathematics dealing with symbols and the rules for manipulating those symbols.",
+                    "displayOrder": 1
+                },
+                {
+                    "name": "Geometry",
+                    "description": "The branch of mathematics concerned with the properties and relations of points, lines, surfaces, and solids.",
+                    "displayOrder": 2
+                },
+                {
+                    "name": "Calculus",
+                    "description": "The mathematical study of continuous change, dealing with derivatives and integrals.",
+                    "displayOrder": 3
+                },
+                {
+                    "name": "Statistics",
+                    "description": "The branch of mathematics dealing with data collection, analysis, interpretation, and presentation.",
+                    "displayOrder": 4
+                },
+                {
+                    "name": "Pre-calculus",
+                    "description": "A course that prepares students for calculus, covering algebraic and trigonometric concepts.",
+                    "displayOrder": 5
+                }
+            ]
+        },
+        {
+            "name": "Science",
+            "description": "The systematic enterprise that builds and organizes knowledge in the form of testable explanations and predictions about the universe.",
+            "displayOrder": 2,
+            "subtopics": [ 
+                {
+                    "name": "Physics",
+                    "description": "The branch of science concerned with the nature and properties of matter and energy.",
+                    "displayOrder": 1
+                },
+                {
+                    "name": "Chemistry",
+                    "description": "The branch of science that studies the composition, structure, properties, and change of matter.",
+                    "displayOrder": 2
+                },
+                {
+                    "name": "Biology",
+                    "description": "The science that studies living organisms, their life processes, and their interactions with the environment.",
+                    "displayOrder": 3
+                },
+                {
+                    "name": "Environmental Science",
+                    "description": "The study of the Earth and its components, including geology, meteorology, oceanography, and astronomy.",
+                    "displayOrder": 4
+                }
+            
+        ]
+        },
+        {
+            "name": "English",
+            "description": "The study of the English language, its literature, and its composition.",
+            "displayOrder": 3,
+            "subtopics": [
+                {
+                    "name": "Literature Analysis",
+                    "description": "The body of written works, including poetry, prose, and drama, that express ideas and emotions.",
+                    "displayOrder": 1
+                },
+                {
+                    "name": "Essay Writing",
+                    "description": "The act of writing, especially in a structured and coherent manner.",
+                    "displayOrder": 2
+                },
+                {
+                    "name": "Grammar and Syntax",
+                    "description": "The set of structural rules governing the composition of clauses, phrases, and words in a language.",
+                    "displayOrder": 3
+                },
+                {
+                    "name": "Research Skills",
+                    "description": "The ability to locate, evaluate, and use information effectively for academic purposes.",
+                    "displayOrder": 4
+                }
+            ]
+        },
+        {
+            "name": "History",
+            "description": "The study of past events, particularly in human affairs.",  
+            "displayOrder": 4,
+            "subtopics": [
+                {
+                    "name": "World History",
+                    "description": "The study of global historical events, cultures, and civilizations.",
+                    "displayOrder": 1
+                },
+                {
+                    "name": "U.S. History",
+                    "description": "The history of the United States from its founding to the present day.",
+                    "displayOrder": 2
+                },
+                {
+                    "name": "Economics",
+                    "description": "The study of the production, distribution, and consumption of goods and services.",
+                    "displayOrder": 3
+                },
+                {
+                    "name": "Government & Civics",
+                    "description": "The study of political systems, government structures, and civic responsibilities.",
+                    "displayOrder": 4
+                }
+            ]
+        }
+    ]
+}
