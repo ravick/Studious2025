@@ -3,6 +3,7 @@ const session = require('express-session');
 const path = require('path');
 const authRoutes = require('./routes/authRoutes');
 const homeRoutes = require('./routes/homeRoutes');
+const topicsRoutes = require('./routes/topicsRoutes');
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use(session({
 
 app.use('/auth', authRoutes);
 app.use('/home', homeRoutes);
+app.use('/topics', topicsRoutes);
 
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
