@@ -98,3 +98,5 @@ function logout() {
     window.location.href = 'signup.html';
   });
 }
+
+
