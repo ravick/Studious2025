@@ -5,7 +5,11 @@ const authRoutes = require('./routes/authRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 
 const app = express();
-const port = 3000;
+
+// Load environment variables from .env file. 
+// On Azure App Service, PORT is  set by the Azure via environment variables.
+// https://learn.microsoft.com/en-us/azure/app-service/configure-language-nodejs?pivots=platform-linux
+const port =  process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -22,9 +26,5 @@ app.use(session({
 
 app.use('/auth', authRoutes);
 app.use('/home', homeRoutes);
-
-app.get('/', (req, res) => {
-    res.send('Welcome to the Home Page!');
-});
 
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));

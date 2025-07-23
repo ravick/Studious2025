@@ -5,7 +5,7 @@ function loadNavbar(username) {
       const navbarContainer = document.createElement('div');
       navbarContainer.innerHTML = html;
       document.body.insertBefore(navbarContainer, document.body.firstChild);
-      document.getElementById('user-name').innerText = username;
+      document.getElementById('user-name').innerText = 'Welcome, ' + username;
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = '/css/navbar.css';
@@ -17,6 +17,6 @@ function logout() {
   fetch('/auth/logout', { method: 'POST' }).then(() => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = 'index.html';
+    window.location.href = 'signup.html';
   });
 }

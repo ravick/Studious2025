@@ -1,97 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studious - Authentication</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/index.css">
-  <style>
-    .input-field {
-      height: 2.5rem; /* h-10 */
-      width: 100%;
-      border-radius: 0.375rem; /* rounded-md */
-      border: 1px solid var(--input-border-color); /* border-input */
-      background-color: var(--background-color);
-      padding: 0.5rem 0.75rem; /* px-3 py-2 */
-      font-size: 1rem; /* text-base */
-      color: var(--text-foreground);
-    }
-    .input-field::placeholder {
-      color: var(--placeholder-color); /* placeholder:text-muted-foreground */
-      font-size: 1rem;
-      font-family: inherit;
-      opacity: 1;
-    }
-    .input-field:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 2px var(--ring-color);
-    }
-  </style>
-
-</head>
-<script src="/js/navbar.js"></script>
-<script src="/js/index.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studious Ask - Home</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    
+</head> 
 <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-8 w-8 text-primary"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg><span class="text-2xl font-bold gradient-text">Studious Ask</span></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="about.html">About</a>
+      </li>
+    </ul>
 
-  <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md">
-    <div class="flex flex-col space-y-1.5 p-6 text-center">
-      <div class="flex items-center justify-center space-x-2 mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-8 w-8 text-primary"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
-        <span class="text-2xl font-bold gradient-text">Studious Ask</span>
-      </div>
-      <h3 class="font-semibold tracking-tight text-2xl">Welcome back</h3>
-      <p class="text-sm text-muted-foreground">Sign in to your account to continue learning</p>
-    </div>
-     <div id="form-section">
-       <div id="form-header">
-      <button id="login-tab" onclick="switchForm('login')" class="active">Login</button>
-      <button id="signup-tab" onclick="switchForm('signup')">Sign Up</button>
-    </div>
+    <ul class="navbar-nav ">
+       <li class="nav-item">
+        <a class="nav-link" href="signup.html">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    
+    <!-- <div class="Head">
+        <img src="tuff.jpg" alt="Studious Ask" style="width: 150px; height:45px;">
+        <a style="text-align: center; font-size: 20px; color: black;" href="./about.html">About</a>
+        <a href="signup.html"><button style="font-family: Arial, Helvetica, sans-serif; background-color: white; font-size: 20px;"><b>Log in</b></button> </a>
+    </div> -->
 
-    <div id="auth-form">
-      <div id="auth-form">
-    <div id="name-fields" style="display: none;" class="flex gap-4">
-      <div class="space-y-2 w-1/2">
-        <label class="text-sm font-medium leading-none" for="firstName">First Name</label>
-        <input type="text" id="firstName" placeholder="Enter your first name"
-          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-      </div>
-      <div class="space-y-2 w-1/2">
-        <label class="text-sm font-medium leading-none" for="lastName">Last Name</label>
-        <input type="text" id="lastName" placeholder="Enter your last name"
-          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
-      </div>
-    </div>
-      <div class="space-y-2"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email">Email</label>
-        <input type="email" class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full" id="username" placeholder="Enter your email">
-      </div>
-      <div class="space-y-2"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="password">Password</label>
-        <input type="password" class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full" id="password" placeholder="Enter your password">
-      </div>
-      <!-- <button type="button" role="checkbox" aria-checked="false" data-state="unchecked" value="on" class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" id="rememberMe"></button> -->
-      <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="remember">Remember me</label>
-     <input type="checkbox" id="rememberMe">
-      <!-- <label>Remember Me<input type="checkbox" id="rememberMe"></label> -->
-      <!-- <button id="submit-btn" onclick="login()">Login</button> -->
-       <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full" id="submit-btn" onclick="login()">Sign In</button>
+    <img class="img_d" src="bigpic.jpg" alt="Students collaborating in a study group">
+
+    <div class="heads">
+        <p style="font-size: 60px;"><b>Smarter Questions</b></p>
+        <p style="font-size: 60px;"><b>Better Answers</b></p>
+        <p style="color:blue; font-size: 60px;"><b>Faster Learning</b></p>
     </div>
 
-    <p id="message" class="status-msg"></p>
-  </div>
+    <div class="h2">
+        <p>Get instant academic help, homework support, and</p>
+        <p>college prep-all in one place.</p><br>
+        <p><b>Ask.Learn.Succeed.</b></p>
+    </div>
+    
+   <a href="signup.html"> <button type="button" class="btn btn-primary" style="margin-left: 80px;">Get Started</button> </a>
+    
+    <!-- <div class="buton">
+        <a href="signup.html"><button style="font-size: 18px; background-color: blue; color: white;"><b>Get Started</b></button></a>
+    </div> -->
 
-
-  </div>
-
- 
-  <div id="logout-section" style="display: none;">
-    <p id="welcome-message"></p>
-    <button onclick="window.location.href='home.html'">Go to Home</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-  </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
 </html>
