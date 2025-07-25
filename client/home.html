@@ -290,6 +290,7 @@
     function setSuggestedQuestions(questions) {
       console.log("Suggested Questions: " + JSON.stringify(questions));
       const questionsDiv = document.getElementById("suggestedQuestionsDiv");
+      questionsDiv.innerHTML = "";
 
       // <ul> </ul>
       const questionsList = document.createElement("ul");
