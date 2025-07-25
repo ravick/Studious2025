@@ -202,13 +202,14 @@
       <div class="col" id="rightContent">
         <div id="suggestedQuestions">
           <h2>Suggested Questions</h2>
-          <ul class="list-group">
+          <div id="suggestedQuestionsDiv"></div>
+          <!-- <ul class="list-group">
             <li class="list-group-item" onclick="setQuestion('What is the capital of France?')">What is the capital of France?</li>
             <li class="list-group-item" onclick="setQuestion('How does photosynthesis work  ?')">How does photosynthesis work?</li>
             <li class="list-group-item" onclick="setQuestion('What is the theory of relativity?')">What is the theory of relativity?</li>
             <li class="list-group-item" onclick="setQuestion('Explain the Pythagorean theorem.')">Explain the Pythagorean theorem.</li>
             <li class="list-group-item" onclick="setQuestion('What are the laws of thermodynamics?')">What are the laws of thermodynamics?</li>
-          </ul>
+          </ul> -->
         </div>
     </div>
   </div>
@@ -257,10 +258,15 @@
                 const subListItem = document.createElement("li");
                 
                 const subTopicLink = document.createElement("a");
+                subTopicLink.id = "subTopicLink-" + subTopic.name + "-" + subTopic.displayOrder;
                 subTopicLink.className = "dropdown-item";
                 subTopicLink.href = "#";
                 subTopicLink.setAttribute("title", subTopic.description);
                 subTopicLink.textContent = subTopic.name;
+                subTopicLink.onclick = function() {
+                  console.log("Sub Topic Clicked: "  + subTopic.name);
+                  setSuggestedQuestions(subTopic.suggestedQuestions);
+                }; 
                 subListItem.appendChild(subTopicLink);
 
                 subTopicList.appendChild(subListItem);
@@ -280,6 +286,46 @@
         // window.location.href = "signup.html"; // Redirect to signup page if not logged in
       }
     });
+
+    function setSuggestedQuestions(questions) {
+      console.log("Suggested Questions: " + JSON.stringify(questions));
+      const questionsDiv = document.getElementById("suggestedQuestionsDiv");
+
+      // <ul> </ul>
+      const questionsList = document.createElement("ul");
+      questionsList.className = "list-group";
+      questionsDiv.appendChild(questionsList);
+
+      questions.forEach(question => {
+   
+        // <li> </li>
+        const questionListItem = document.createElement("li");
+        questionListItem.className = "list-group-item";
+
+        // <a> </a>
+        const questionLink = document.createElement("a");
+        questionLink.href = "#";
+        questionLink.setAttribute("title", question);
+        questionLink.textContent = question;
+        questionLink.onclick = function() {
+          setQuestion(question);
+        };
+        
+        // <li> <a> </a> </li>
+        questionListItem.appendChild(questionLink);
+        
+        // <ul>  <li> <a> </a> </li> </ul>
+        questionsList.appendChild(questionListItem);
+      });
+
+    }
+    
+    function setQuestion(question) {
+        console.log("Question selected: " + question);
+        const userInput = document.getElementById("user-input");
+        userInput.value = question; // Set the input field to the selected question
+    }
+
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
