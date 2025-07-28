@@ -93,7 +93,6 @@ button:hover {
   font-weight: bold;
 }
 
-/* Rest of your existing styles */
 .container {
     display: flex;
     justify-content: space-between;

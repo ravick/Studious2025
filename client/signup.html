@@ -34,6 +34,7 @@
       color: #6b7280;
       transition: all 0.3s ease;
       font-size: 14px;
+      cursor: pointer;
     }
     
     .tab-button.active {
@@ -70,7 +71,8 @@
     .card-custom {
       background: rgba(255, 255, 255, 1);
       border: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     .form-control {
@@ -148,36 +150,32 @@
       width: 1rem;
       height: 1rem;
     }
+
+    #back-home-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
+      border: 1.5px solid #ccc;
+      padding: 8px 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      z-index: 1000;
+    }
+    #back-home-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #111;
+    }
   </style>
 </head>
 <body>
-  <div class="text-center mt-3">
-    <button
-  id="back-home-btn"
-  type="button"
-  onclick="goHome()"
-  style="
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    background: rgba(255, 255, 255, 0.85);
-    color: #333;
-    border: 1.5px solid #ccc;
-    padding: 8px 16px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    z-index: 1000;
-  "
-  onmouseover="this.style.background='rgba(255, 255, 255, 1)'; this.style.color='#111';"
-  onmouseout="this.style.background='rgba(255, 255, 255, 0.85)'; this.style.color='#333';"
->
-  ← Back to Homepage
-</button>
-  </div>
+  <button id="back-home-btn" type="button" onclick="goHome()">← Back to Homepage</button>
+
   <div class="min-vh-100 d-flex align-items-center justify-content-center p-4">
     <div class="card card-custom rounded-lg shadow-lg w-100" style="max-width: 450px">
       <div class="card-body p-4">
@@ -196,9 +194,7 @@
               class="text-primary"
               viewBox="0 0 24 24"
             >
-              <path
-                d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
-              ></path>
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
               <path d="M22 10v6"></path>
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
             </svg>
@@ -208,8 +204,8 @@
           <p id="form-subtitle" class="text-muted mb-4">Sign in to your account to continue learning</p>
         </div>
 
-        <!-- Tab Buttons -->
-        <div class="d-flex justify-content-center mb-4">
+        <!-- Tab Buttons (hidden for forgot/reset password) -->
+        <div id="tab-buttons" class="d-flex justify-content-center mb-4">
           <button
             id="login-tab"
             class="tab-button active"
@@ -266,6 +262,79 @@
             </div>
             <button type="submit" id="login-btn" class="btn btn-primary w-100 py-2 fw-medium">
               Sign In
+            </button>
+            <!-- Forgot Password Link -->
+            <a href="#" id="forgot-link" class="d-block mt-2 text-primary text-center" onclick="showForgotPasswordForm();return false;">Forgot password?</a>
+          </form>
+
+          <!-- Forgot Password Form (hidden by default) -->
+          <form
+            id="forgot-form"
+            class="auth-form d-flex flex-column gap-3 hidden"
+            onsubmit="handleForgotPassword(event)"
+          >
+            <div>
+              <label for="forgotEmail" class="form-label fw-medium">Enter your email to reset password</label>
+              <input
+                type="email"
+                id="forgotEmail"
+                placeholder="Enter your email"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" id="forgot-btn" class="btn btn-primary w-100 py-2 fw-medium">
+              Send Reset Link
+            </button>
+            <button type="button" class="btn btn-link w-100 mt-2" onclick="switchForm('login')">
+              Back to Login
+            </button>
+          </form>
+
+          <!-- Reset Password Form (hidden by default) -->
+          <form
+            id="reset-form"
+            class="auth-form d-flex flex-column gap-3 hidden"
+          >
+            <input type="hidden" id="resetEmail" />
+            
+            <!-- Code Verification Section -->
+            <div id="resetCodeSection">
+              <div>
+                <label for="resetCode" class="form-label fw-medium">Enter verification code</label>
+                <input
+                  type="text"
+                  id="resetCode"
+                  placeholder="Enter the code sent to your email"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <button type="button" onclick="handleVerifyCode(event)" class="btn btn-primary w-100 py-2 fw-medium mt-3">
+                Verify Code
+              </button>
+            </div>
+
+            <!-- New Password Section (hidden initially) -->
+            <div id="newPasswordSection" class="hidden">
+              <div>
+                <label for="newPassword" class="form-label fw-medium">New Password</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  placeholder="Enter your new password"
+                  class="form-control"
+                  required
+                  minlength="6"
+                />
+              </div>
+              <button type="button" onclick="handleResetPassword(event)" class="btn btn-primary w-100 py-2 fw-medium mt-3">
+                Reset Password
+              </button>
+            </div>
+
+            <button type="button" class="btn btn-link w-100 mt-2" onclick="switchForm('login')">
+              Back to Login
             </button>
           </form>
 
@@ -343,181 +412,331 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
+    let currentForm = 'login';
+
     function goHome() {
       window.location.href = '/';
+    }
+
+    function showMessage(text, success = false) {
+      const msg = document.getElementById('message');
+      if (msg) {
+        msg.innerText = text;
+        msg.className = success ? 'status-msg success' : 'status-msg error';
+        msg.style.display = 'block';
       }
+    }
+
+    function hideMessage() {
+      const msg = document.getElementById('message');
+      if (msg) {
+        msg.style.display = 'none';
+      }
+    }
+
+    function clearFormInputs(formId) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      form.querySelectorAll('input').forEach(input => {
+        if (input.type !== 'hidden') input.value = '';
+      });
+    }
+
+    function updateFormTitle(title, subtitle) {
+      document.getElementById('form-title').textContent = title;
+      document.getElementById('form-subtitle').textContent = subtitle;
+    }
+
+    function showTabButtons() {
+      document.getElementById('tab-buttons').style.display = 'flex';
+    }
+
+    function hideTabButtons() {
+      document.getElementById('tab-buttons').style.display = 'none';
+    }
 
     function switchForm(formType) {
       const loginTab = document.getElementById("login-tab");
       const signupTab = document.getElementById("signup-tab");
       const loginForm = document.getElementById("login-form");
       const signupForm = document.getElementById("signup-form");
-      const title = document.getElementById("form-title");
-      const subtitle = document.getElementById("form-subtitle");
+      const forgotForm = document.getElementById("forgot-form");
+      const resetForm = document.getElementById("reset-form");
 
-      // Clear any messages
+      // Hide all forms
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      resetForm.classList.add("hidden");
+
+      // Reset tabs
+      loginTab.classList.remove("active");
+      signupTab.classList.remove("active");
+
       hideMessage();
+      showTabButtons();
 
       if (formType === "login") {
-        // Update tabs
-        loginTab.classList.add("active");
-        signupTab.classList.remove("active");
-        
-        // Update forms
+        currentForm = 'login';
         loginForm.classList.remove("hidden");
-        signupForm.classList.add("hidden");
-        
-        // Update text
-        title.textContent = "Welcome back";
-        subtitle.textContent = "Sign in to your account to continue learning";
-        
+        loginTab.classList.add("active");
+        updateFormTitle("Welcome back", "Sign in to your account to continue learning");
+        clearFormInputs('login-form');
       } else if (formType === "signup") {
-        // Update tabs
-        loginTab.classList.remove("active");
-        signupTab.classList.add("active");
-        
-        // Update forms
-        loginForm.classList.add("hidden");
+        currentForm = 'signup';
         signupForm.classList.remove("hidden");
-        
-        // Update text
-        title.textContent = "Create your account";
-        subtitle.textContent = "Join thousands of students already learning with us";
+        signupTab.classList.add("active");
+        updateFormTitle("Create Account", "Sign up to start your learning journey");
+        clearFormInputs('signup-form');
       }
     }
 
-    function showMessage(text, isError = false) {
-      const message = document.getElementById('message');
-      message.textContent = text;
-      message.className = isError ? 'status-msg error text-center' : 'status-msg success text-center';
-      message.style.display = 'block';
+    function showForgotPasswordForm() {
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const forgotForm = document.getElementById("forgot-form");
+      const resetForm = document.getElementById("reset-form");
+
+      // Hide all forms
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.remove("hidden");
+      resetForm.classList.add("hidden");
+
+      currentForm = 'forgot';
+      hideTabButtons();
+      hideMessage();
+      updateFormTitle("Reset Password", "Enter your email to receive a reset code");
+      clearFormInputs('forgot-form');
     }
 
-    function hideMessage() {
-      const message = document.getElementById('message');
-      message.style.display = 'none';
+    function showResetPasswordForm(email) {
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const forgotForm = document.getElementById("forgot-form");
+      const resetForm = document.getElementById("reset-form");
+
+      // Hide all forms
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      resetForm.classList.remove("hidden");
+
+      currentForm = 'reset';
+      hideTabButtons();
+      hideMessage();
+      updateFormTitle("Enter Reset Code", "Check your email for the verification code");
+      
+      document.getElementById('resetEmail').value = email || '';
+      document.getElementById('resetCodeSection').classList.remove('hidden');
+      document.getElementById('newPasswordSection').classList.add('hidden');
+      clearFormInputs('reset-form');
     }
 
-    function setButtonLoading(buttonId, isLoading, originalText) {
-      const button = document.getElementById(buttonId);
-      if (isLoading) {
-        button.disabled = true;
-        button.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status"></span>Loading...`;
-      } else {
-        button.disabled = false;
-        button.textContent = originalText;
-      }
-    }
-
+    // Event handlers
     async function handleLogin(event) {
       event.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value;
-      
+
+      const email = document.getElementById("loginEmail")?.value.trim();
+      const password = document.getElementById("loginPassword")?.value.trim();
+      const rememberMe = document.getElementById("rememberMe")?.checked;
+
+      hideMessage();
+
       if (!email || !password) {
-        showMessage('Please fill in all fields', true);
+        showMessage("Email and password are required.");
         return;
       }
-      
-      setButtonLoading('login-btn', true, 'Sign In');
-      hideMessage();
-      
+
       try {
-        const response = await fetch('/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+        const res = await fetch("/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
         });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          showMessage('Login successful! Redirecting...', false);
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showMessage("Login successful! Redirecting...", true);
+          const storage = rememberMe ? localStorage : sessionStorage;
+          if (data.firstName) storage.setItem("firstName", data.firstName);
+          if (data.lastName) storage.setItem("lastName", data.lastName);
+          storage.setItem("email", email);
+          storage.setItem("isLoggedIn", "true");
+
           setTimeout(() => {
-            window.location.href = '/navbar.html'; // Redirect to navbar?
+            window.location.href = "/home.html";
           }, 1500);
         } else {
-          showMessage(data.error || 'Login failed', true);
+          showMessage(data.error || "Login failed.");
         }
       } catch (error) {
-        console.error('Login error:', error);
-        showMessage('Network error. Please try again.', true);
-      } finally {
-        setButtonLoading('login-btn', false, 'Sign In');
+        showMessage("Server error. Try again later.");
       }
     }
 
     async function handleSignup(event) {
       event.preventDefault();
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('signupEmail').value.trim();
-      const password = document.getElementById('signupPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      
-      // Basic validation
-      if (!firstName || !lastName || !email || !password || !confirmPassword) {
-        showMessage('Please fill in all fields!', true);
-        return;
-      }
-      
-      if (password !== confirmPassword) {
-        showMessage('Passwords do not match!', true);
-        return;
-      }
-      
-      if (password.length < 6) {
-        showMessage('Password must be at least 6 characters long!', true);
-        return;
-      }
-      
-      setButtonLoading('signup-btn', true, 'Create Account');
+
+      const firstName = document.getElementById("firstName")?.value.trim();
+      const lastName = document.getElementById("lastName")?.value.trim();
+      const email = document.getElementById("signupEmail")?.value.trim();
+      const password = document.getElementById("signupPassword")?.value.trim();
+      const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
+
       hideMessage();
-      
+
+      if (!firstName || !lastName || !email || !password || !confirmPassword) {
+        showMessage("All fields are required.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showMessage("Passwords do not match.");
+        return;
+      }
+
       try {
-        const response = await fetch('/auth/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password
-          })
+        const res = await fetch("/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ firstName, lastName, email, password })
         });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          showMessage('Account created successfully! Redirecting...', false);
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showMessage("Registration successful! Logging you in...", true);
           setTimeout(() => {
-            window.location.href = '/'; // Redirect to home page
+            window.location.href = "/home.html";
           }, 1500);
         } else {
-          showMessage(data.error || 'Registration failed', true);
-          if (data.error && data.error.includes('already exists')) {
-            setTimeout(() => {
-              switchForm('login');
-              document.getElementById('loginEmail').value = email;
-            }, 3000);
-          }
+          showMessage(data.error || "Sign up failed.");
         }
       } catch (error) {
-        console.error('Signup error:', error);
-        showMessage('Network error. Please try again.', true);
-      } finally {
-        setButtonLoading('signup-btn', false, 'Create Account');
+        showMessage("Server error. Try again later.");
       }
     }
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      switchForm('login');
-    });
+    async function handleForgotPassword(event) {
+      event.preventDefault();
+
+      const forgotEmail = document.getElementById('forgotEmail')?.value.trim();
+      hideMessage();
+
+      if (!forgotEmail) {
+        showMessage("Please enter your email address.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/forgot-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: forgotEmail })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showMessage("A reset code has been sent to your email.", true);
+          setTimeout(() => {
+            showResetPasswordForm(forgotEmail);
+          }, 1500);
+        } else {
+          showMessage(data.error || "This is not a registered email.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    async function handleVerifyCode(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('resetEmail').value.trim();
+      const code = document.getElementById('resetCode').value.trim();
+      hideMessage();
+
+      if (!code) {
+        showMessage("Please enter the code sent to your email.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/verify-reset-code", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, code })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showMessage("Code verified! Please enter your new password.", true);
+          setTimeout(() => {
+            document.getElementById('resetCodeSection').classList.add('hidden');
+            document.getElementById('newPasswordSection').classList.remove('hidden');
+            updateFormTitle("Set New Password", "Enter your new password below");
+          }, 1000);
+        } else {
+          showMessage(data.error || "Invalid or expired code.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    async function handleResetPassword(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('resetEmail').value.trim();
+      const code = document.getElementById('resetCode').value.trim();
+      const newPassword = document.getElementById('newPassword').value.trim();
+
+      hideMessage();
+
+      if (!newPassword) {
+        showMessage("Please enter a new password.");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        showMessage("Password must be at least 6 characters long.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, code, newPassword })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showMessage("Password reset successful! You can now log in.", true);
+          setTimeout(() => {
+            switchForm('login');
+          }, 2000);
+        } else {
+          showMessage(data.error || "Failed to reset password.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    // Initialize page
+    window.onload = () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn');
+      const email = localStorage.getItem('email') || sessionStorage.getItem('email');
+      
+      if (isLoggedIn && email) {
+        window.location.href = "/home.html";
+      } else {
+        switchForm('login');
+      }
+    };
   </script>
 </body>
 </html>
