@@ -218,7 +218,7 @@
     document.addEventListener("DOMContentLoaded", function() {
       // Check if user is logged in
       console.log("Checking login status for fetching the topics");
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const isLoggedIn = localStorage.getItem("isLoggedIn") || sessionStorage.getItem("isLoggedIn");
       if (isLoggedIn === "true") {
         fetch("/topics")
         .then(response => response.json())
