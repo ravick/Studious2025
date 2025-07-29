@@ -58,7 +58,7 @@ button:hover {
   color: white;
 }
 
-/* Form styles - THIS WAS MISSING */
+
 .login-form, .signup-form {
   display: none; /* Initially hidden */
   padding: 20px 0;
