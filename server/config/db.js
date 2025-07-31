@@ -4,7 +4,7 @@ const dbPath = path.join(__dirname, 'users.db');
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
-  // Create table if not exists
+  // Create users table if not exists
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,7 +15,7 @@ db.serialize(() => {
     )
   `);
 
-  // Check existing columns
+  // Check and add missing columns to users
   db.all("PRAGMA table_info(users)", (err, columns) => {
     if (err) {
       console.error("Error fetching table info:", err);
@@ -36,6 +36,24 @@ db.serialize(() => {
         if (err) console.error("Error adding resetCodeExpires column:", err);
         else console.log("Added resetCodeExpires column");
       });
+    }
+  });
+
+  // Create chats table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS chats (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      userEmail TEXT,
+      chatName TEXT,
+      chatHistory TEXT,
+      createdAt INTEGER DEFAULT (strftime('%s','now')),
+      FOREIGN KEY (userEmail) REFERENCES users(email)
+    )
+  `, err => {
+    if (err) {
+      console.error("Error creating chats table:", err);
+    } else {
+      console.log("Chats table ensured");
     }
   });
 });
