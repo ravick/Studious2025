@@ -1,67 +1,742 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Studious - Authentication</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/signup.css">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+    crossorigin="anonymous"
+  />
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      padding: 12px 24px;
+      margin: 0 4px;
+      border-radius: 8px;
+      font-weight: 500;
+      color: #6b7280;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .tab-button.active {
+      background-color: #1675f2;
+      color: white;
+      box-shadow: 0 2px 8px rgba(22, 117, 242, 0.3);
+    }
+    
+    .tab-button:not(.active) {
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+    
+    .tab-button:hover:not(.active) {
+      background-color: #d1d5db;
+      transform: translateY(-1px);
+    }
+    
+    .form-container {
+      position: relative;
+      min-height: 400px;
+    }
+    
+    .auth-form {
+      transition: all 0.3s ease;
+      opacity: 1;
+    }
+    
+    .auth-form.hidden {
+      display: none !important;
+      opacity: 0;
+    }
+
+    .card-custom {
+      background: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-control {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    .form-control:focus {
+      border-color: #1675f2;
+      box-shadow: 0 0 0 3px rgba(22, 117, 242, 0.1);
+      outline: none;
+    }
+
+    .btn-primary {
+      background-color: #1675f2;
+      border-color: #1675f2;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 6px;
+    }
+
+    .btn-primary:hover {
+      background-color: #1366d9;
+      border-color: #1366d9;
+    }
+
+    .status-msg {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .status-msg.error {
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .status-msg.success {
+      background-color: #dbeafe;
+      color: #1366d9;
+      border: 1px solid #bfdbfe;
+    }
+
+    .text-primary {
+      color: #1675f2 !important;
+    }
+
+    .form-label {
+      color: #374151;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .form-check-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .form-check-input:checked {
+      background-color: #1675f2;
+      border-color: #1675f2;
+    }
+
+    .btn-primary:disabled {
+      background-color: #9ca3af;
+      border-color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .spinner-border-sm {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    #back-home-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
+      border: 1.5px solid #ccc;
+      padding: 8px 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      z-index: 1000;
+    }
+    #back-home-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #111;
+    }
+  </style>
 </head>
-
 <body>
-  <div class="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
+  <button id="back-home-btn" type="button" onclick="goHome()">← Back to Homepage</button>
 
-  <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md">
-    <div class="flex flex-col space-y-1.5 p-6 text-center">
-      <div class="flex items-center justify-center space-x-2 mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-8 w-8 text-primary"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
-        <span class="text-2xl font-bold gradient-text">Studious Ask</span>
+  <div class="min-vh-100 d-flex align-items-center justify-content-center p-4">
+    <div class="card card-custom rounded-lg shadow-lg w-100" style="max-width: 450px">
+      <div class="card-body p-4">
+        <!-- Header -->
+        <div class="text-center mb-4">
+          <div class="d-flex justify-content-center align-items-center mb-3 gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-primary"
+              viewBox="0 0 24 24"
+            >
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+              <path d="M22 10v6"></path>
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+            </svg>
+            <span class="fs-4 fw-bold gradient-text">Studious Ask</span>
+          </div>
+          <h3 id="form-title" class="fw-semibold mb-1">Welcome back</h3>
+          <p id="form-subtitle" class="text-muted mb-4">Sign in to your account to continue learning</p>
+        </div>
+
+        <!-- Tab Buttons (hidden for forgot/reset password) -->
+        <div id="tab-buttons" class="d-flex justify-content-center mb-4">
+          <button
+            id="login-tab"
+            class="tab-button active"
+            onclick="switchForm('login')"
+            type="button"
+          >
+            Login
+          </button>
+          <button
+            id="signup-tab"
+            class="tab-button"
+            onclick="switchForm('signup')"
+            type="button"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <!-- Forms Container -->
+        <div class="form-container">
+          <!-- Login Form -->
+          <form
+            id="login-form"
+            class="auth-form d-flex flex-column gap-3"
+            onsubmit="handleLogin(event)"
+          >
+            <div>
+              <label for="loginEmail" class="form-label fw-medium">Email</label>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                class="form-control"
+                required
+              />
+            </div>
+            <div>
+              <label for="loginPassword" class="form-label fw-medium">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                class="form-check-input"
+              />
+              <label for="rememberMe" class="form-check-label">Remember me</label>
+            </div>
+            <button type="submit" id="login-btn" class="btn btn-primary w-100 py-2 fw-medium">
+              Sign In
+            </button>
+            <!-- Forgot Password Link -->
+            <a href="#" id="forgot-link" class="d-block mt-2 text-primary text-center" onclick="showForgotPasswordForm();return false;">Forgot password?</a>
+          </form>
+
+          <!-- Forgot Password Form (hidden by default) -->
+          <form
+            id="forgot-form"
+            class="auth-form d-flex flex-column gap-3 hidden"
+            onsubmit="handleForgotPassword(event)"
+          >
+            <div>
+              <label for="forgotEmail" class="form-label fw-medium">Enter your email to reset password</label>
+              <input
+                type="email"
+                id="forgotEmail"
+                placeholder="Enter your email"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" id="forgot-btn" class="btn btn-primary w-100 py-2 fw-medium">
+              Send Reset Link
+            </button>
+            <button type="button" class="btn btn-link w-100 mt-2" onclick="switchForm('login')">
+              Back to Login
+            </button>
+          </form>
+
+          <!-- Reset Password Form (hidden by default) -->
+          <form
+            id="reset-form"
+            class="auth-form d-flex flex-column gap-3 hidden"
+          >
+            <input type="hidden" id="resetEmail" />
+            
+            <!-- Code Verification Section -->
+            <div id="resetCodeSection">
+              <div>
+                <label for="resetCode" class="form-label fw-medium">Enter verification code</label>
+                <input
+                  type="text"
+                  id="resetCode"
+                  placeholder="Enter the code sent to your email"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <button type="button" onclick="handleVerifyCode(event)" class="btn btn-primary w-100 py-2 fw-medium mt-3">
+                Verify Code
+              </button>
+            </div>
+
+            <!-- New Password Section (hidden initially) -->
+            <div id="newPasswordSection" class="hidden">
+              <div>
+                <label for="newPassword" class="form-label fw-medium">New Password</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  placeholder="Enter your new password"
+                  class="form-control"
+                  required
+                  minlength="6"
+                />
+              </div>
+              <button type="button" onclick="handleResetPassword(event)" class="btn btn-primary w-100 py-2 fw-medium mt-3">
+                Reset Password
+              </button>
+            </div>
+
+            <button type="button" class="btn btn-link w-100 mt-2" onclick="switchForm('login')">
+              Back to Login
+            </button>
+          </form>
+
+          <!-- Sign Up Form -->
+          <form
+            id="signup-form"
+            class="auth-form d-flex flex-column gap-3 hidden"
+            onsubmit="handleSignup(event)"
+          >
+            <div class="row">
+              <div class="col-md-6">
+                <label for="firstName" class="form-label fw-medium">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="First name"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="lastName" class="form-label fw-medium">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="Last name"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label for="signupEmail" class="form-label fw-medium">Email</label>
+              <input
+                type="email"
+                id="signupEmail"
+                placeholder="Enter your email"
+                class="form-control"
+                required
+              />
+            </div>
+            <div>
+              <label for="signupPassword" class="form-label fw-medium">Password</label>
+              <input
+                type="password"
+                id="signupPassword"
+                placeholder="Enter your password"
+                class="form-control"
+                required
+                minlength="6"
+              />
+            </div>
+            <div>
+              <label for="confirmPassword" class="form-label fw-medium">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" id="signup-btn" class="btn btn-primary w-100 py-2 fw-medium">
+              Create Account
+            </button>
+          </form>
+        </div>
+
+        <!-- Status Message -->
+        <div id="message" class="status-msg text-center" style="display: none;"></div>
       </div>
-      <h3 class="font-semibold tracking-tight text-2xl">Welcome back</h3>
-      <p class="text-sm text-muted-foreground">Sign in to your account to continue learning</p>
     </div>
-     <div id="form-section">
-       <div id="form-header">
-      <button id="login-tab" onclick="switchForm('login')" class="active">Login</button>
-      <button id="signup-tab" onclick="switchForm('signup')">Sign Up</button>
-    </div>
-
-    <div id="auth-form">
-      <div class="space-y-2"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email">Email</label>
-        <input type="email" class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full" 
-               id="username" placeholder="Enter your email">
-      </div>
-      <div class="space-y-2"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="password">Password</label>
-        <input type="password" class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full"
-               id="password" placeholder="Enter your password">
-      </div>
-      <!-- <button type="button" role="checkbox" aria-checked="false" data-state="unchecked" value="on" class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" id="rememberMe"></button> -->
-      <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="remember">Remember me</label>
-     <input type="checkbox" id="rememberMe">
-      <!-- <label>Remember Me<input type="checkbox" id="rememberMe"></label> -->
-      <!-- <button id="submit-btn" onclick="login()">Login</button> -->
-       <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full" id="submit-btn" onclick="login()">Sign In</button>
-    </div>
-
-    <p id="message" class="status-msg"></p>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    let currentForm = 'login';
 
-  </div>
+    function goHome() {
+      window.location.href = '/';
+    }
 
- 
-  <div id="logout-section" style="display: none;">
-    <p id="welcome-message"></p>
-    <button onclick="window.location.href='home.html'">Go to Home</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-  </div>
+    function showMessage(text, success = false) {
+      const msg = document.getElementById('message');
+      if (msg) {
+        msg.innerText = text;
+        msg.className = success ? 'status-msg success' : 'status-msg error';
+        msg.style.display = 'block';
+      }
+    }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-  <script src="/js/navbar.js"></script>
-  <script src="/js/signup.js"></script>
+    function hideMessage() {
+      const msg = document.getElementById('message');
+      if (msg) {
+        msg.style.display = 'none';
+      }
+    }
 
+    function clearFormInputs(formId) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      form.querySelectorAll('input').forEach(input => {
+        if (input.type !== 'hidden') input.value = '';
+      });
+    }
+
+    function updateFormTitle(title, subtitle) {
+      document.getElementById('form-title').textContent = title;
+      document.getElementById('form-subtitle').textContent = subtitle;
+    }
+
+    function showTabButtons() {
+      document.getElementById('tab-buttons').style.display = 'flex';
+    }
+
+    function hideTabButtons() {
+      document.getElementById('tab-buttons').style.display = 'none';
+    }
+
+    function switchForm(formType) {
+      const loginTab = document.getElementById("login-tab");
+      const signupTab = document.getElementById("signup-tab");
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const forgotForm = document.getElementById("forgot-form");
+      const resetForm = document.getElementById("reset-form");
+
+      // Hide all forms
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      resetForm.classList.add("hidden");
+
+      // Reset tabs
+      loginTab.classList.remove("active");
+      signupTab.classList.remove("active");
+
+      hideMessage();
+      showTabButtons();
+
+      if (formType === "login") {
+        currentForm = 'login';
+        loginForm.classList.remove("hidden");
+        loginTab.classList.add("active");
+        updateFormTitle("Welcome back", "Sign in to your account to continue learning");
+        clearFormInputs('login-form');
+      } else if (formType === "signup") {
+        currentForm = 'signup';
+        signupForm.classList.remove("hidden");
+        signupTab.classList.add("active");
+        updateFormTitle("Create Account", "Sign up to start your learning journey");
+        clearFormInputs('signup-form');
+      }
+    }
+
+    function showForgotPasswordForm() {
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const forgotForm = document.getElementById("forgot-form");
+      const resetForm = document.getElementById("reset-form");
+
+      // Hide all forms
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.remove("hidden");
+      resetForm.classList.add("hidden");
+
+      currentForm = 'forgot';
+      hideTabButtons();
+      hideMessage();
+      updateFormTitle("Reset Password", "Enter your email to receive a reset code");
+      clearFormInputs('forgot-form');
+    }
+
+    function showResetPasswordForm(email) {
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const forgotForm = document.getElementById("forgot-form");
+      const resetForm = document.getElementById("reset-form");
+
+      // Hide all forms
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      resetForm.classList.remove("hidden");
+
+      currentForm = 'reset';
+      hideTabButtons();
+      hideMessage();
+      updateFormTitle("Enter Reset Code", "Check your email for the verification code");
+      
+      document.getElementById('resetEmail').value = email || '';
+      document.getElementById('resetCodeSection').classList.remove('hidden');
+      document.getElementById('newPasswordSection').classList.add('hidden');
+      clearFormInputs('reset-form');
+    }
+
+    // Event handlers
+    async function handleLogin(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("loginEmail")?.value.trim();
+      const password = document.getElementById("loginPassword")?.value.trim();
+      const rememberMe = document.getElementById("rememberMe")?.checked;
+
+      hideMessage();
+
+      if (!email || !password) {
+        showMessage("Email and password are required.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showMessage("Login successful! Redirecting...", true);
+          const storage = rememberMe ? localStorage : sessionStorage;
+          if (data.firstName) storage.setItem("firstName", data.firstName);
+          if (data.lastName) storage.setItem("lastName", data.lastName);
+          storage.setItem("email", email);
+          storage.setItem("isLoggedIn", "true");
+
+          setTimeout(() => {
+            window.location.href = "/home.html";
+          }, 1500);
+        } else {
+          showMessage(data.error || "Login failed.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    async function handleSignup(event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById("firstName")?.value.trim();
+      const lastName = document.getElementById("lastName")?.value.trim();
+      const email = document.getElementById("signupEmail")?.value.trim();
+      const password = document.getElementById("signupPassword")?.value.trim();
+      const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
+
+      hideMessage();
+
+      if (!firstName || !lastName || !email || !password || !confirmPassword) {
+        showMessage("All fields are required.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showMessage("Passwords do not match.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ firstName, lastName, email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showMessage("Registration successful! Logging you in...", true);
+          setTimeout(() => {
+            window.location.href = "/home.html";
+          }, 1500);
+        } else {
+          showMessage(data.error || "Sign up failed.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    async function handleForgotPassword(event) {
+      event.preventDefault();
+
+      const forgotEmail = document.getElementById('forgotEmail')?.value.trim();
+      hideMessage();
+
+      if (!forgotEmail) {
+        showMessage("Please enter your email address.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/forgot-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: forgotEmail })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showMessage("A reset code has been sent to your email.", true);
+          setTimeout(() => {
+            showResetPasswordForm(forgotEmail);
+          }, 1500);
+        } else {
+          showMessage(data.error || "This is not a registered email.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    async function handleVerifyCode(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('resetEmail').value.trim();
+      const code = document.getElementById('resetCode').value.trim();
+      hideMessage();
+
+      if (!code) {
+        showMessage("Please enter the code sent to your email.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/verify-reset-code", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, code })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showMessage("Code verified! Please enter your new password.", true);
+          setTimeout(() => {
+            document.getElementById('resetCodeSection').classList.add('hidden');
+            document.getElementById('newPasswordSection').classList.remove('hidden');
+            updateFormTitle("Set New Password", "Enter your new password below");
+          }, 1000);
+        } else {
+          showMessage(data.error || "Invalid or expired code.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    async function handleResetPassword(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('resetEmail').value.trim();
+      const code = document.getElementById('resetCode').value.trim();
+      const newPassword = document.getElementById('newPassword').value.trim();
+
+      hideMessage();
+
+      if (!newPassword) {
+        showMessage("Please enter a new password.");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        showMessage("Password must be at least 6 characters long.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, code, newPassword })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showMessage("Password reset successful! You can now log in.", true);
+          setTimeout(() => {
+            switchForm('login');
+          }, 2000);
+        } else {
+          showMessage(data.error || "Failed to reset password.");
+        }
+      } catch (error) {
+        showMessage("Server error. Try again later.");
+      }
+    }
+
+    // Initialize page
+    window.onload = () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn');
+      const email = localStorage.getItem('email') || sessionStorage.getItem('email');
+      
+      if (isLoggedIn && email) {
+        window.location.href = "/home.html";
+      } else {
+        switchForm('login');
+      }
+    };
+  </script>
 </body>
 </html>

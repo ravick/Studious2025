@@ -1,20 +1,22 @@
 window.onload = async () => {
-  const username = localStorage.getItem('username') || sessionStorage.getItem('username');
-  if (!username) {
+  const email = localStorage.getItem('email') || sessionStorage.getItem('email');
+  if (!email) {
+    console.log("Error getting email from storage.");
     window.location.href = 'index.html';
     return;
   }
 
-  loadNavbar(username);
+  loadNavbar(email);
 
   const res = await fetch('/home');
   const data = await res.json();
   if (!res.ok) {
     localStorage.clear();
     sessionStorage.clear();
+    console.log("Error fetching home data: " + res.status + " " + res.statusText  );
     window.location.href = 'index.html';
   } else {
-    // document.getElementById('welcome-message').innerText = `Welcome, ${username}`;
+    // document.getElementById('welcome-message').innerText = `Welcome, ${email}`;
   }
 };
 
