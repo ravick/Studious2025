@@ -22,9 +22,11 @@
           </div>
       </div>
       <div class="col-6" id="mainContent">
+                <div id="topicsRowContainer" style="display: flex; flex-direction: row; gap: 16px; justify-content: center; align-items: center; margin-bottom: 48px; width: 100%;">
+                </div>
         <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
 
-        <!-- AI Wizard SVG -->
+        <!-- AI Wizard SVG stays above everything -->
         <div style="margin-bottom: 20px;">
           <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -48,35 +50,26 @@
                 <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:0.1" />
               </radialGradient>
             </defs>
-            
             <!-- Background glow -->
             <circle cx="60" cy="60" r="55" fill="url(#magicGlow)" opacity="0.3"/>
-            
             <!-- Wizard robe -->
             <path d="M60 45 L45 105 L75 105 Z" fill="url(#wizardRobe)" stroke="#2c5aa0" stroke-width="1"/>
-            
             <!-- Wizard face -->
             <circle cx="60" cy="35" r="12" fill="#fdbcb4" stroke="#e8a298" stroke-width="1"/>
-            
             <!-- Wizard hat -->
             <path d="M60 10 L45 40 L75 40 Z" fill="url(#wizardHat)" stroke="#5a4fcf" stroke-width="1"/>
             <circle cx="52" cy="40" r="3" fill="#fff" opacity="0.8"/>
             <circle cx="68" cy="40" r="2" fill="#fff" opacity="0.6"/>
-            
             <!-- Hat tip with star -->
             <circle cx="48" cy="15" r="4" fill="#ffd700"/>
             <path d="M48 12 L49 15 L52 15 L50 17 L51 20 L48 18 L45 20 L46 17 L44 15 L47 15 Z" fill="#fff"/>
-            
             <!-- Eyes -->
             <circle cx="56" cy="32" r="1.5" fill="#333"/>
             <circle cx="64" cy="32" r="1.5" fill="#333"/>
-            
             <!-- Beard -->
             <path d="M60 40 Q50 45 52 52 Q60 48 68 52 Q70 45 60 40" fill="#e6e6e6" stroke="#ccc" stroke-width="0.5"/>
-            
             <!-- Magic wand -->
             <line x1="75" y1="60" x2="95" y2="40" stroke="url(#magicWand)" stroke-width="3" stroke-linecap="round"/>
-            
             <!-- Magic sparkles -->
             <circle cx="98" cy="37" r="2" fill="#ffd700" opacity="0.9">
               <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
@@ -87,7 +80,6 @@
             <circle cx="102" cy="45" r="1" fill="#4ecdc4" opacity="0.7">
               <animate attributeName="opacity" values="0.1;0.8;0.1" dur="1.8s" repeatCount="indefinite" begin="1s"/>
             </circle>
-            
             <!-- Additional floating sparkles -->
             <circle cx="25" cy="30" r="1" fill="#ffd700" opacity="0.6">
               <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite"/>
@@ -98,7 +90,7 @@
               <animateTransform attributeName="transform" type="translate" values="0,0; -8,-15; 0,0" dur="2.5s" repeatCount="indefinite" begin="1s"/>
             </circle>
           </svg>
-            <span class="h1">Ask a Studious Question</span>
+          <span class="h1">Ask a Studious Question</span>
         </div>
 
         <!-- <p>Type your question below and click submit to get an answer from our AI assistant.</p> -->
@@ -224,22 +216,21 @@
         .then(response => response.json())
         .then(data => {
           console.log("Topics fetched successfully:", data);
-          const topics = data.topics.sort((a, b) => a.displayOrder - b.displayOrder); 
+          const topics = data.topics.sort((a, b) => a.displayOrder - b.displayOrder);
 
           console.log("total topics fetched: " + topics.length);
 
           if (topics && topics.length > 0) {
-
-            // get the parent dropdown for ALL the Topics
-            const topicsContainer = document.getElementById("topicsContainer");
+            // get the parent row container for ALL the Topics
+            const topicsRowContainer = document.getElementById("topicsRowContainer");
+            topicsRowContainer.innerHTML = "";
 
             topics.forEach(topic => {
-              
               const topicDiv = document.createElement("div");
               topicDiv.className = "dropdown";
 
               const topicButton = document.createElement("button");
-              topicButton.className = "btn btn-primary dropdown-toggle w-100";
+              topicButton.className = "btn btn-primary dropdown-toggle";
               topicButton.type = "button";
               topicButton.id = "dropdownMenu" + topic.displayOrder;
               topicButton.setAttribute("data-bs-toggle", "dropdown");
@@ -248,15 +239,14 @@
               topicDiv.appendChild(topicButton);
 
               const subTopicList = document.createElement("ul");
-              subTopicList.className = "dropdown-menu w-100";
+              subTopicList.className = "dropdown-menu";
               subTopicList.setAttribute("aria-labelledby", "dropdownMenu" + topic.displayOrder);
 
-              var subTopics = topic.subtopics.sort((a, b) => a.displayOrder - b.displayOrder); // Sort subtopics by displayOrder
+              var subTopics = topic.subtopics.sort((a, b) => a.displayOrder - b.displayOrder);
               console.log("Subtopics for " + topic.name + ": " + subTopics.length);
 
               subTopics.forEach(subTopic => {
                 const subListItem = document.createElement("li");
-                
                 const subTopicLink = document.createElement("a");
                 subTopicLink.id = "subTopicLink-" + subTopic.name + "-" + subTopic.displayOrder;
                 subTopicLink.className = "dropdown-item";
@@ -266,17 +256,15 @@
                 subTopicLink.onclick = function() {
                   console.log("Sub Topic Clicked: "  + subTopic.name);
                   setSuggestedQuestions(subTopic.suggestedQuestions);
-                }; 
+                };
                 subListItem.appendChild(subTopicLink);
-
                 subTopicList.appendChild(subListItem);
               });
-              
+
               topicDiv.appendChild(subTopicList);
-              topicsContainer.appendChild(topicDiv);
+              topicsRowContainer.appendChild(topicDiv);
               console.log("Added topic: " + topic.name + " with " + topic.subtopics.length + " subtopics");
             });
-            
           } else {
             console.log("No topics available.");
           }
