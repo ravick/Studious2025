@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saved Conversations</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .chat {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      background: #f9f9f9;
+    }
+    .chat h3 {
+      margin: 0 0 5px;
+    }
+    .chat p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="window.location.href='home.html'" style="margin-bottom: 20px;">Back to Home</button>
+  <h1>Saved Conversations</h1>
+  <div id="chatList">Loading...</div>
+  <script src="/js/conversations.js"></script>
+  <script>
+    fetch('/api/chats')
+      .then(response => response.json())
+      .then(data => {
+        const chatList = document.getElementById('chatList');
+        chatList.innerHTML = ''; // Clear loading
+
+        if (data.length === 0) {
+          chatList.textContent = 'No chats found.';
+          return;
+        }
+
+        data.forEach(chat => {
+          const chatDiv = document.createElement('div');
+          chatDiv.className = 'chat';
+          chatDiv.innerHTML = `
+            <h3>${chat.chatName || 'Untitled Chat'}</h3>
+            <p><strong>User:</strong> ${chat.userEmail}</p>
+            <p><strong>Created:</strong> ${new Date(chat.createdAt * 1000).toLocaleString()}</p>
+            <p><strong>History:</strong><br>${chat.chatHistory}</p>
+          `;
+          chatList.appendChild(chatDiv);
+        });
+      })
+      .catch(err => {
+        console.error('Error loading chats:', err);
+        document.getElementById('chatList').textContent = 'Failed to load chats.';
+      });
+  </script>
+</body>
+</html>
