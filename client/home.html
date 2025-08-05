@@ -18,7 +18,9 @@
       <div class="col" id="leftContent">
           <!-- Parent Container for all the Topics -->
           <div id="topicsContainer" style="display: flex; flex-direction: column; gap: 16px; margin-top: 20px; max-width: 220px;">
-            <!-- Topics will be dynamically added here -->
+            <button class="btn btn-primary" style="background-color: purple; border-color: purple;" onclick="window.location.href='conversations.html'">
+              Saved Conversations
+            </button>
           </div>
       </div>
       <div class="col-6" id="mainContent">
@@ -98,7 +100,7 @@
               <animateTransform attributeName="transform" type="translate" values="0,0; -8,-15; 0,0" dur="2.5s" repeatCount="indefinite" begin="1s"/>
             </circle>
           </svg>
-            <span class="h1">Ask a Studious Question</span>
+            <div id="subjectTitle">Ask a studious question</div>>
         </div>
 
         <!-- <p>Type your question below and click submit to get an answer from our AI assistant.</p> -->
@@ -264,9 +266,17 @@
                 subTopicLink.setAttribute("title", subTopic.description);
                 subTopicLink.textContent = subTopic.name;
                 subTopicLink.onclick = function() {
-                  console.log("Sub Topic Clicked: "  + subTopic.name);
+                  console.log("Sub Topic Clicked: " + subTopic.name);
+                  
+                  // Update the title
+                  const subjectTitle = document.getElementById('subjectTitle');
+                  subjectTitle.textContent = "Ask a " + subTopic.name + " question";
+                  subjectTitle.style.display = "block";
+
+                  // Set suggested questions
                   setSuggestedQuestions(subTopic.suggestedQuestions);
-                }; 
+                };
+
                 subListItem.appendChild(subTopicLink);
 
                 subTopicList.appendChild(subListItem);
@@ -327,6 +337,10 @@
         userInput.value = question; // Set the input field to the selected question
     }
 
+    let subjectTitle = document.getElementById('studiousTitle');
+
+    // subjectTitle.textContent = "Ask a" + subtopic + " question";
+    // subjectTitle.style.display = "block";
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

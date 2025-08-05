@@ -28,14 +28,15 @@ function fetchHome() {
     });
 }
 
+
 function submitQuestion() {
   const question = document.getElementById('user-input').value;
+  
   console.log("Submitting question:", question);
   document.getElementById('submit-btn').disabled = true;
   document.getElementById('submit-btn').style.backgroundColor = 'gray';
   document.getElementById('thinking-container').style.display = 'block';
   document.getElementById('response-container').innerText = '';
-
   var usageDiv = document.getElementById('usage-div');
   usageDiv.style.display = 'none';
   var usageMessage = document.getElementById('usage-message');
@@ -43,7 +44,7 @@ function submitQuestion() {
 
   console.log("Request received:", question);
 
-  fetch('/home/ask', {
+  fetch('/chat/ask', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ question })
