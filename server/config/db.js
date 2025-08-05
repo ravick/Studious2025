@@ -45,7 +45,8 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       userEmail TEXT,
       chatName TEXT,
-      chatHistory TEXT,
+      chatInputs TEXT,
+      chatOutputs TEXT,
       createdAt INTEGER DEFAULT (strftime('%s','now')),
       FOREIGN KEY (userEmail) REFERENCES users(email)
     )
@@ -57,5 +58,7 @@ db.serialize(() => {
     }
   });
 });
+
+
 
 module.exports = db;
