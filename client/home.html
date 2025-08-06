@@ -16,12 +16,10 @@
   <div id="bodyContainer" class="container-fluid">
     <div class="row">
       <div class="col" id="leftContent">
-          <!-- Parent Container for all the Topics -->
-          <div id="topicsContainer" style="display: flex; flex-direction: column; gap: 16px; margin-top: 20px; max-width: 220px;">
-            <button class="btn btn-primary" style="background-color: purple; border-color: purple;" onclick="window.location.href='conversations.html'">
-              Saved Conversations
-            </button>
-          </div>
+        <!-- Only keep the Saved Conversations button, remove topicsContainer and dropdowns -->
+        <button class="btn btn-primary" style="background-color: purple; border-color: purple;" onclick="window.location.href='conversations.html'">
+          Saved Conversations
+        </button>
       </div>
       <div class="col-6" id="mainContent">
         <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -283,7 +281,7 @@
               });
               
               topicDiv.appendChild(subTopicList);
-              topicsContainer.appendChild(topicDiv);
+             
               console.log("Added topic: " + topic.name + " with " + topic.subtopics.length + " subtopics");
             });
             
@@ -345,6 +343,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
   <script src="/js/navbar.js"></script>
+  
   <script src="/js/home.js"></script>
 </body>
 </html>
