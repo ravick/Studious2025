@@ -31,7 +31,7 @@ function fetchHome() {
 
 function submitQuestion() {
   const question = document.getElementById('user-input').value;
-  
+  const email = localStorage.getItem('email') || sessionStorage.getItem('email');
   console.log("Submitting question:", question);
   document.getElementById('submit-btn').disabled = true;
   document.getElementById('submit-btn').style.backgroundColor = 'gray';
@@ -44,10 +44,14 @@ function submitQuestion() {
 
   console.log("Request received:", question);
 
+
   fetch('/chat/ask', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ question })
+    body: JSON.stringify({
+    question: question,
+    email: email
+  })
   })
   .then(res => res.json())
   .then(data => {
@@ -91,6 +95,37 @@ function submitQuestion() {
         document.getElementById('response-container').innerText = 'No answer found.';
       }
     }
+
+    if (data.answer) {
+      // Your existing code to render response...
+
+      // SAVE TO DATABASE
+      const email = localStorage.getItem('email') || sessionStorage.getItem('email');
+      const question = document.getElementById('user-input').value;
+      const answer = data.answer;
+      const chatName = "Default Chat"; // or let the user input/select a chat name
+
+      fetch('/chat/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          chatName,
+          question,
+          answer
+        })
+      })
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) {
+          console.log("Chat saved");
+          loadChatHistory(); // 🔁 Update history after saving
+        } else {
+          console.error("Failed to save chat:", result.error);
+        }
+      });
+    }
+
   });
 } 
 
