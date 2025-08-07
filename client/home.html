@@ -16,10 +16,12 @@
   <div id="bodyContainer" class="container-fluid">
     <div class="row">
       <div class="col" id="leftContent">
-        <!-- Only keep the Saved Conversations button, remove topicsContainer and dropdowns -->
-        <button class="btn btn-primary" style="background-color: purple; border-color: purple;" onclick="window.location.href='conversations.html'">
-          Saved Conversations
-        </button>
+        <div id="chatHistory" class="chat-history">
+          <h4 class="chat-history-title">Chat History</h4>
+          <ul id="chatHistoryList" class="list-group">
+            <!-- Chat entries will be injected here -->
+          </ul>
+        </div>
       </div>
       <div class="col-6" id="mainContent">
         <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">

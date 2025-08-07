@@ -1,20 +1,40 @@
 const simpleAiController = require('../api/simpleAiController');
 const db = require('../config/db'); // Make sure this path is correct for your db instance
 
+exports.getChatHistory = async (req, res) => {
+  try { 
+    const userEmail = req.session?.user?.email || req.session?.email  || req.query.email;
+    if (!userEmail) {
+      return res.status(400).json({ error: 'User email is required' });
+    }
+    db.all("SELECT * FROM chats WHERE userEmail like ?", [userEmail], (err, rows) => {
+      if (err) {
+        console.error('DB query error:', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      res.json(rows);
+    });
+  } catch (err) {
+    console.error('Error in /chat/history:', err);
+    res.status(500).json({ error: 'Internal server error' }); 
+  }
+};
+
 exports.askAndSaveChat = async (req, res) => {
   try {
     const question = req.body.question;
-    const userEmail = req.session?.user?.email || 'guest@example.com';
+    const userEmail = req.session?.user?.email || req.session?.email || req.body.email || 'guest@example.com';
 
     // Get the response from the AI
     const response = await simpleAiController.ask(req);
     const answer = response.answer || 'No answer provided';
 
+    const  chatName = question.length > 50 ? question.substring(0, 50) + '...' : question;
     // Insert into database
     db.run(`
-      INSERT INTO chats (userEmail, chatInputs, chatOutputs)
-      VALUES (?, ?, ?)
-    `, [userEmail, question, answer], function (err) {
+      INSERT INTO chats (chatName, userEmail, chatInputs, chatOutputs)
+      VALUES (?, ?, ?, ?)
+    `, [chatName, userEmail, question, answer], function (err) {
       if (err) {
         console.error('DB insert error:', err);
         
@@ -31,3 +51,8 @@ exports.askAndSaveChat = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+// api/chatController.js
+
+
+
