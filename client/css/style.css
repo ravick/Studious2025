@@ -192,3 +192,24 @@ footer {
   font-size: 0.9rem;
   color: #777;
 }
+#suggestedQuestions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 180px; /* Adjust this value to match the question box vertical position */
+}
+#suggestedQuestionsDiv .list-group-item {
+  margin-bottom: 12px;         /* Space between items */
+  border-radius: 10px;         /* Rounded edges */
+  border: 1px solid #e0e0e0;   /* Light border */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07); /* Subtle shadow */
+  transition: box-shadow 0.2s;
+}
+
+#suggestedQuestionsDiv .list-group-item:hover {
+  box-shadow: 0 4px 12px rgba(22,117,242,0.12); /* Slightly stronger shadow on hover */
+  background-color: #f5faff;                    /* Light blue on hover */
+}
+#rightContent {
+  margin-left: -100px; /* Move the suggested questions box closer to the ask a question box on the x-axis */
+}
