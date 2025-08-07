@@ -213,3 +213,31 @@ footer {
 #rightContent {
   margin-left: -100px; /* Move the suggested questions box closer to the ask a question box on the x-axis */
 }
+
+.chat-history {
+  background-color: #f0f0f0;
+  padding: 10px;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+}
+
+.chat-history-title {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+.chat-history .list-group-item {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  transition: background-color 0.2s;
+}
+
+.chat-history .list-group-item:hover {
+  background-color: #e0e0e0;
+}
+

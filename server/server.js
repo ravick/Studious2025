@@ -31,4 +31,5 @@ app.use('/home', homeRoutes);
 app.use('/topics', topicsRoutes);
 app.use('/chat', chatRoutes);
 
+
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
