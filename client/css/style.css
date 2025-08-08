@@ -196,7 +196,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 180px; /* Adjust this value to match the question box vertical position */
+  margin-top: 30px !important; /* Adjust this value to match the question box vertical position */
 }
 #suggestedQuestionsDiv .list-group-item {
   margin-bottom: 12px;         /* Space between items */
@@ -209,17 +209,16 @@ footer {
 #suggestedQuestionsDiv .list-group-item:hover {
   box-shadow: 0 4px 12px rgba(22,117,242,0.12); /* Slightly stronger shadow on hover */
   background-color: #f5faff;                    /* Light blue on hover */
-}
+} 
+
 #rightContent {
-  margin-left: -100px; /* Move the suggested questions box closer to the ask a question box on the x-axis */
+  margin-left: 0 !important; /* Move the suggested questions box closer to the ask a question box on the x-axis */
 }
-<<<<<<< HEAD
-=======
 
 .chat-history {
   background-color: #f0f0f0;
   padding: 10px;
-  height: 100vh;
+  min-height: 200px;
   overflow-y: auto;
   border-right: 1px solid #ccc;
 }
@@ -243,4 +242,25 @@ footer {
   background-color: #e0e0e0;
 }
 
->>>>>>> 9830045b28a0f5a1a42cee1fb66dc8e9a96c47de
+@media (max-width: 992px) {
+  #bodyContainer .row {
+    flex-direction: column !important;
+  }
+  #leftContent, #mainContent, #rightContent {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  #suggestedQuestions {
+    margin-top: 20px !important;
+    align-items: center !important;
+  }
+  .chat-history {
+    height: auto !important;
+    min-height: 150px;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+

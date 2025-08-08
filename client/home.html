@@ -8,16 +8,17 @@
   <style>
 
   </style>
-   
+  
 </head>
 
 <body>
   <h1 id="welcome-message"></h1>
 
-  <div id="bodyContainer" class="container-fluid">
+  
+  <div id="bodyContainer" class="container-fluid" class="container-sm" class="container-md" class="container-lg">
     <div class="row">
       <div class="col" id="leftContent">
-        <div id="chatHistory" class="chat-history">
+        <div id="chatHistory" class="chat-history" class="container-sm" class="container-md" class="container-lg">
           <h4 class="chat-history-title">Chat History</h4>
           <ul id="chatHistoryList" class="list-group">
             <!-- Chat entries will be injected here -->
@@ -105,10 +106,11 @@
         </div>
 
         <!-- <p>Type your question below and click submit to get an answer from our AI assistant.</p> -->
+        <div class="container-sm" ; class="container-md" ; class="container-lg" >
         <table style="margin: 0 auto; text-align: center; border-collapse: separate; border: 1px solid gray; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
           <tr>
             <td style="text-align: center; padding: 10px;">
-              <input type="text" id="user-input" class="flex input" style="text-align: center; padding: 8px; margin-top: 25px; width: 400px;" placeholder="Enter your question here" required/>
+              <input type="text" id="user-input" class="flex input" class="container-lg" class="container-md" class="container-sm"style="text-align: center; padding: 8px; margin-top: 25px; width: 400px;" placeholder="Enter your question here" required/>
             </td>
             <td style="text-align: center; padding: 10px;">
               <button id="submit-btn" onclick="submitQuestion()" style="padding: 8px 16px;" class="btn btn-danger">Submit</button>
@@ -130,6 +132,7 @@
             </td>
           </tr>
         </table>
+        </div>
         </div>
 
         <div id="thinking-container" style="text-align: center; display: none;">
@@ -203,9 +206,9 @@
         </div>
       </div>
       <div class="col" id="rightContent">
-        <div id="suggestedQuestions">
+        <div id="suggestedQuestions" class="container-sm" class="container-md" class="container-lg">
           <h2>Suggested Questions</h2>
-          <div id="suggestedQuestionsDiv"></div>
+          <div id="suggestedQuestionsDiv" class="list-group list-group-numbered"></div>
           <!-- <ul class="list-group">
             <li class="list-group-item" onclick="setQuestion('What is the capital of France?')">What is the capital of France?</li>
             <li class="list-group-item" onclick="setQuestion('How does photosynthesis work  ?')">How does photosynthesis work?</li>
@@ -216,6 +219,7 @@
         </div>
     </div>
   </div>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
