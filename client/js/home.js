@@ -18,6 +18,7 @@ window.onload = async () => {
   } else {
     // document.getElementById('welcome-message').innerText = `Welcome, ${email}`;
   }
+  updateChatHistory();
 };
 
 function fetchHome() {
@@ -117,13 +118,54 @@ function updateChatHistory() {
     .then(data => {
       const historyContainer = document.getElementById('chatHistory');
       historyContainer.innerHTML = ''; // Clear previous history
+
       data.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'chat-item';
-        div.innerHTML = `<strong>${item.chatName}</strong>`;
+        div.className = 'card mb-2 shadow-sm';
+        div.style.cursor = 'pointer';
+        div.style.padding = '10px';
+
+        div.innerHTML = `<div class="card-body p-2"><strong>${item.chatName}</strong></div>`;
+
+        // When clicked, set input to that chatName and submit
+        div.addEventListener('click', () => {
+          console.log(`Searching again for: ${item.chatName}`);
+          const userInput = document.getElementById('user-input');
+          userInput.value = item.chatName;
+
+          // Call your submit function that triggers the search
+          submitQuestion();
+        });
+
         historyContainer.prepend(div);
       });
     });
 }
+
+// Example loadChat function - you will want to replace this with your actual chat loading logic
+function loadChat(chatName) {
+  // Show loading state or clear previous messages
+  const responseContainer = document.getElementById('response-container');
+  responseContainer.style.display = 'flex';
+  responseContainer.textContent = 'Loading chat "' + chatName + '"...';
+
+  // Fetch chat messages for the selected chatName
+  fetch(`/chat/messages?chatName=${encodeURIComponent(chatName)}`)
+    .then(res => res.json())
+    .then(messages => {
+      // Render messages inside responseContainer or wherever you display chat
+      responseContainer.innerHTML = ''; // clear
+      messages.forEach(msg => {
+        const p = document.createElement('p');
+        p.textContent = `${msg.sender}: ${msg.text}`;
+        responseContainer.appendChild(p);
+      });
+    })
+    .catch(err => {
+      responseContainer.textContent = 'Failed to load chat messages.';
+      console.error(err);
+    });
+}
+
 
 
