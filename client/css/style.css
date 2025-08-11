@@ -196,7 +196,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 30px !important; /* Adjust this value to match the question box vertical position */
+  margin-top: 160px !important; /* Adjust this value to match the question box vertical position */
 }
 #suggestedQuestionsDiv .list-group-item {
   margin-bottom: 12px;         /* Space between items */
