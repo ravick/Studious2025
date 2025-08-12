@@ -213,8 +213,6 @@ footer {
 #rightContent {
   margin-left: -100px; /* Move the suggested questions box closer to the ask a question box on the x-axis */
 }
-<<<<<<< HEAD
-=======
 
 .chat-history {
   background-color: #f0f0f0;
@@ -243,4 +241,3 @@ footer {
   background-color: #e0e0e0;
 }
 
->>>>>>> 9830045b28a0f5a1a42cee1fb66dc8e9a96c47de
