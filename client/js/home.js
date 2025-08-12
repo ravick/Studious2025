@@ -18,6 +18,7 @@ window.onload = async () => {
   } else {
     // document.getElementById('welcome-message').innerText = `Welcome, ${email}`;
   }
+  updateChatHistory();
 };
 
 function fetchHome() {
@@ -86,6 +87,7 @@ function submitQuestion() {
       var usageMessage = document.getElementById('usage-message');
       usageMessage.value = JSON.stringify(data.usage, null, 2) || 'No usage data available.';
       console.log('Usage data:', data.usage);
+      updateChatHistory();
     } else {
       if(data.error) {
         console.error("Error in response:", data.error);
@@ -96,35 +98,6 @@ function submitQuestion() {
       }
     }
 
-    if (data.answer) {
-      // Your existing code to render response...
-
-      // SAVE TO DATABASE
-      const email = localStorage.getItem('email') || sessionStorage.getItem('email');
-      const question = document.getElementById('user-input').value;
-      const answer = data.answer;
-      const chatName = "Default Chat"; // or let the user input/select a chat name
-
-      fetch('/chat/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          chatName,
-          question,
-          answer
-        })
-      })
-      .then(res => res.json())
-      .then(result => {
-        if (result.success) {
-          console.log("Chat saved");
-          loadChatHistory(); // 🔁 Update history after saving
-        } else {
-          console.error("Failed to save chat:", result.error);
-        }
-      });
-    }
 
   });
 } 
@@ -138,4 +111,50 @@ function logout() {
 }
 
 
+
+function updateChatHistory() {
+  const email = localStorage.getItem('email') || sessionStorage.getItem('email');
+  fetch(`/chat/history?email=${encodeURIComponent(email)}`)
+    .then(res => res.json())
+    .then(data => {
+      const historyContainer = document.getElementById('chatHistory');
+      historyContainer.innerHTML = ''; // Clear previous history
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'chat-item';
+        div.innerHTML = `<strong>${item.chatName}</strong>`;
+        // Store question and answer as data attributes
+        div.dataset.question = item.chatInputs;
+        div.dataset.answer = item.chatOutputs;
+        // Add click event
+        div.addEventListener('click', function() {
+          // Set question in input field
+          console.log("Before");
+          document.getElementById('user-input').value = this.dataset.question;
+          // Show answer in response container, handling HTML if present
+          const responseContainer = document.getElementById('response-container');
+          const answer = this.dataset.answer || '';
+          if (
+            answer.includes('<html>') ||
+            answer.includes('<body>') ||
+            answer.includes('```html')
+          ) {
+            // Remove any text outside of body tags
+            var html = answer
+              .replace(/<html>.*?<body>/, '')
+              .replace(/<\/body>.*?<\/html>/, '')
+              .replace('```html', '')
+              .replace('```', '');
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const bodyContent = doc.body.innerHTML || doc.documentElement.innerHTML;
+            responseContainer.innerHTML = bodyContent || 'No answer found.';
+          } else {
+            responseContainer.innerHTML = answer || 'No answer found.';
+          }
+        });
+        historyContainer.prepend(div);
+      });
+    });
+}
 
