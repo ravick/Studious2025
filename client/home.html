@@ -18,17 +18,9 @@
   <div id="bodyContainer" class="container-fluid" class="container-sm" class="container-md" class="container-lg">
     <div class="row">
       <div class="col" id="leftContent">
-<<<<<<< HEAD
-        <div id="chatHistory" class="chat-history" class="container-sm" class="container-md" class="container-lg">
-          <h4 class="chat-history-title">Chat History</h4>
-          <ul id="chatHistoryList" class="list-group">
-            <!-- Chat entries will be injected here -->
-          </ul>
-=======
         <h4 class="chat-history-title">Chat History</h4>
         <div id="chatHistory" class="chat-history">
           <!-- chat history items will be dynamically injected here -->
->>>>>>> e48f171fcf2f83b6a8a9d6be0008fe3fb992b71b
         </div>
       </div>
       <div class="col-6" id="mainContent">
@@ -111,7 +103,7 @@
             <div id="subjectTitle">Ask a studious question</div>>
         </div>
 
-        <!-- <p>Type your question below and click submit to get an answer from our AI assistant.</p> -->
+        <!-- <p>Type your question below and click to get an answer from our AI assistant.</p> -->
         <div class="container-sm" ; class="container-md" ; class="container-lg" >
         <table style="margin: 0 auto; text-align: center; border-collapse: separate; border: 1px solid gray; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
           <tr>
@@ -352,6 +344,15 @@
 
     // subjectTitle.textContent = "Ask a" + subtopic + " question";
     // subjectTitle.style.display = "block";
+  </script>
+
+  <script>
+    document.getElementById("user-input").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        submitQuestion();
+      }
+    });
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
