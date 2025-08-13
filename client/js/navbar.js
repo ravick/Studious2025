@@ -51,6 +51,10 @@ function loadNavbar(username) {
                   subjectTitle.textContent = "Ask a " + subTopic.name + " question";
                   subjectTitle.style.display = "block";
                 }
+                const suggestedHeader = document.getElementById('suggested-questions-title');
+  if (suggestedHeader) {
+    suggestedHeader.style.display = 'block';
+  }
               };
               item.appendChild(link);
               menu.appendChild(item);
