@@ -1,3 +1,4 @@
+let selectedPrompt = null;
 window.onload = async () => {
   const email = localStorage.getItem('email') || sessionStorage.getItem('email');
   if (!email) {
