@@ -8,6 +8,32 @@
 
 exports.ask = async (request) => {
   var input = request.body.question || request.body.input;
+  var topic = request.body.topic || request.body.selectedTopic;
+  var subtopic = request.body.subtopic || request.body.selectedSubtopic;
+
+  // lookup prompt prefix from topics.json
+  if (topic && subtopic) {
+    // load topics from config
+    const fs = require('fs');
+    const path = require('path');
+    const topicsPath = path.join(__dirname, '../config/topics.json');
+    if (!fs.existsSync(topicsPath)) {
+      console.error("Topics configuration file not found:", topicsPath);
+      return { error: "Topics configuration file not found" };
+    }
+    const topics = JSON.parse(fs.readFileSync(topicsPath, 'utf8'));
+    console.log("Loaded topics:", topics);
+    const topicData = topics.topics.find(t => t.name === topic);
+    if (topicData) {  
+      const subtopicData = topicData.subtopics.find(st => st.name === subtopic);
+      if (subtopicData && subtopicData.promptPrefix) {
+        input = subtopicData.promptPrefix + " " + input;
+      }
+    }
+  } else {
+    console.warn("No topic or subtopic provided, using input as is.");  
+  }
+
   console.log("Input received:", input);
   try {
     const chatCompletion = await client.chat.completions.create({

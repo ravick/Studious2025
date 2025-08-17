@@ -51,6 +51,8 @@ function submitQuestion() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+    topic: selectedTopic,
+    subtopic: selectedSubtopic,
     question: question,
     email: email
   })

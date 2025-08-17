@@ -1,3 +1,7 @@
+let selectedTopic = null;
+let selectedSubtopic = null;
+
+
 function loadNavbar(username) {
   fetch('navbar.html')
     .then(res => res.text())
@@ -43,6 +47,8 @@ function loadNavbar(username) {
               link.textContent = subTopic.name;
               link.title = subTopic.description;
               link.onclick = function() {
+                selectedSubtopic = subTopic.name;
+                selectedTopic = topic.name;
                 if (window.setSuggestedQuestions) {
                   setSuggestedQuestions(subTopic.suggestedQuestions);
                 }
