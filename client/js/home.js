@@ -125,16 +125,20 @@ function updateChatHistory() {
       data.forEach(item => {
         const div = document.createElement('div');
         div.className = 'chat-item';
-        div.innerHTML = `<strong>${item.chatName}</strong>`;
+        // Format timestamp if present
+        let timeString = '';
+        if (item.createdAt) {
+          // If createdAt is in seconds, multiply by 1000 for JS Date
+          const date = new Date(item.createdAt * 1000);
+          timeString = `<span class="chat-timestamp">${date.toLocaleString()}</span>`;
+        }
+        div.innerHTML = `<strong>${item.chatName}</strong> ${timeString}`;
         // Store question and answer as data attributes
         div.dataset.question = item.chatInputs;
         div.dataset.answer = item.chatOutputs;
         // Add click event
         div.addEventListener('click', function() {
-          // Set question in input field
-          console.log("Before");
           document.getElementById('user-input').value = this.dataset.question;
-          // Show answer in response container, handling HTML if present
           const responseContainer = document.getElementById('response-container');
           const answer = this.dataset.answer || '';
           if (
@@ -142,7 +146,6 @@ function updateChatHistory() {
             answer.includes('<body>') ||
             answer.includes('```html')
           ) {
-            // Remove any text outside of body tags
             var html = answer
               .replace(/<html>.*?<body>/, '')
               .replace(/<\/body>.*?<\/html>/, '')
