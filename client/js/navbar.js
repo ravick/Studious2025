@@ -1,3 +1,7 @@
+let selectedTopic = null;
+let selectedSubtopic = null;
+
+
 function loadNavbar(username) {
   fetch('navbar.html')
     .then(res => res.text())
@@ -43,6 +47,8 @@ function loadNavbar(username) {
               link.textContent = subTopic.name;
               link.title = subTopic.description;
               link.onclick = function() {
+                selectedSubtopic = subTopic.name;
+                selectedTopic = topic.name;
                 if (window.setSuggestedQuestions) {
                   setSuggestedQuestions(subTopic.suggestedQuestions);
                 }
@@ -76,3 +82,43 @@ function logout() {
     window.location.href = 'signup.html';
   });
 }
+
+function setSuggestedQuestions(questions) {
+      console.log("Suggested Questions: " + JSON.stringify(questions));
+      const questionsDiv = document.getElementById("suggestedQuestionsDiv");
+      questionsDiv.innerHTML = "";
+
+      // <ul> </ul>
+      const questionsList = document.createElement("ul");
+      questionsList.className = "list-group";
+      questionsDiv.appendChild(questionsList);
+
+      questions.forEach(question => {
+   
+        // <li> </li>
+        const questionListItem = document.createElement("li");
+        questionListItem.className = "list-group-item";
+
+        // <a> </a>
+        const questionLink = document.createElement("a");
+        questionLink.href = "#";
+        questionLink.setAttribute("title", question);
+        questionLink.textContent = question;
+        questionLink.onclick = function() {
+          setQuestion(question);
+        };
+        
+        // <li> <a> </a> </li>
+        questionListItem.appendChild(questionLink);
+        
+        // <ul>  <li> <a> </a> </li> </ul>
+        questionsList.appendChild(questionListItem);
+      });
+
+    }
+    
+    function setQuestion(question) {
+        console.log("Question selected: " + question);
+        const userInput = document.getElementById("user-input");
+        userInput.value = question; // Set the input field to the selected question
+    }

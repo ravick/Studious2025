@@ -1,3 +1,4 @@
+let selectedPrompt = null;
 window.onload = async () => {
   const email = localStorage.getItem('email') || sessionStorage.getItem('email');
   if (!email) {
@@ -50,6 +51,8 @@ function submitQuestion() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+    topic: selectedTopic,
+    subtopic: selectedSubtopic,
     question: question,
     email: email
   })
