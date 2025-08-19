@@ -10,6 +10,7 @@ exports.ask = async (request) => {
   var input = request.body.question || request.body.input;
   var topic = request.body.topic || request.body.selectedTopic;
   var subtopic = request.body.subtopic || request.body.selectedSubtopic;
+  var systemContext;
 
   // lookup prompt prefix from topics.json
   if (topic && subtopic) {
@@ -27,7 +28,7 @@ exports.ask = async (request) => {
     if (topicData) {  
       const subtopicData = topicData.subtopics.find(st => st.name === subtopic);
       if (subtopicData && subtopicData.promptPrefix) {
-        input = subtopicData.promptPrefix + " " + input;
+        systemContext = subtopicData.promptPrefix;
       }
     }
   } else {
@@ -39,7 +40,7 @@ exports.ask = async (request) => {
     const chatCompletion = await client.chat.completions.create({
       model: 'gpt-4o-mini', // or gpt-3.5-turbo, gpt-4o
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'system', content: systemContext || 'You are a helpful assistant.' },
         { role: 'user', content: "Answer should be embedded in html tags. " + input }
       ],
       temperature: 0.7,
