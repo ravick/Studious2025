@@ -47,6 +47,8 @@ function submitQuestion() {
   console.log("Request received:", question);
 
 
+  
+
   fetch('/chat/ask', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
