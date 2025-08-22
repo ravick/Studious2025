@@ -123,22 +123,40 @@ function updateChatHistory() {
     .then(res => res.json())
     .then(data => {
       const historyContainer = document.getElementById('chatHistory');
-      historyContainer.innerHTML = ''; // Clear previous history
-      data.forEach(item => {
+      historyContainer.innerHTML = '';
+      const searchInput = document.getElementById('history-search');
+      let filtered = data;
+      if (searchInput && searchInput.value.trim()) {
+        const q = searchInput.value.trim().toLowerCase();
+        filtered = data.filter(item =>
+          item.chatName.toLowerCase().includes(q) ||
+          (item.chatTag && item.chatTag.toLowerCase().includes(q))
+        );
+      }
+      filtered.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'chat-item';
-        // Format timestamp if present
+        div.className = 'history-item';
+        // Format timestamp if available
+        let meta = '';
+
         let timeString = '';
         if (item.createdAt) {
-          // If createdAt is in seconds, multiply by 1000 for JS Date
           const date = new Date(item.createdAt * 1000);
-          timeString = `<span class="chat-timestamp">${date.toLocaleString()}</span>`;
+          timeString = `<span class="history-meta">${date.toLocaleString()}</span>`;
+        } else {
+          timeString = `<span class="history-meta">2 hours ago</span>`; // fallback
         }
-        div.innerHTML = `<strong>${item.chatName}</strong> ${timeString}`;
-        // Store question and answer as data attributes
+        div.innerHTML = `
+          <div class="history-row">
+            <span class="history-name">${item.chatName}</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="history-tag">${item.subtopic || 'No subtopic'}</span>
+              ${timeString}
+            </div>
+          </div>
+        `;
         div.dataset.question = item.chatInputs;
         div.dataset.answer = item.chatOutputs;
-        // Add click event
         div.addEventListener('click', function() {
           document.getElementById('user-input').value = this.dataset.question;
           const responseContainer = document.getElementById('response-container');
@@ -165,4 +183,12 @@ function updateChatHistory() {
       });
     });
 }
+
+// Add search filtering
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('history-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', updateChatHistory);
+  }
+});
 
