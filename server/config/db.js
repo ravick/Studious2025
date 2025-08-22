@@ -45,6 +45,8 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       userEmail TEXT,
       chatName TEXT,
+      topic TEXT,
+      subtopic TEXT,
       chatInputs TEXT,
       chatOutputs TEXT,
       createdAt INTEGER DEFAULT (strftime('%s','now')),

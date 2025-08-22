@@ -24,7 +24,8 @@ exports.askAndSaveChat = async (req, res) => {
   try {
     const question = req.body.question;
     const userEmail = req.session?.user?.email || req.session?.email || req.body.email || 'guest@example.com';
-
+    var topic = req.body.topic || req.body.selectedTopic;
+    var subtopic = req.body.subtopic || req.body.selectedSubtopic;
     // Get the response from the AI
     const response = await simpleAiController.ask(req);
     const answer = response.answer || 'No answer provided';
@@ -32,9 +33,9 @@ exports.askAndSaveChat = async (req, res) => {
     const  chatName = question.length > 50 ? question.substring(0, 50) + '...' : question;
     // Insert into database
     db.run(`
-      INSERT INTO chats (chatName, userEmail, chatInputs, chatOutputs)
-      VALUES (?, ?, ?, ?)
-    `, [chatName, userEmail, question, answer], function (err) {
+      INSERT INTO chats (chatName, userEmail, chatInputs, chatOutputs, topic, subtopic)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `, [chatName, userEmail, question, answer, topic, subtopic], function (err) {
       if (err) {
         console.error('DB insert error:', err);
         
